@@ -1,5 +1,26 @@
+@font-face {
+  font-family: 'Etihad Altis';
+  src: url('fonts/EtihadAltis-Medium.eot');
+  src: url('fonts/EtihadAltis-Medium.eot?#iefix') format('embedded-opentype'),
+      url('fonts/EtihadAltis-Medium.woff2') format('woff2'),
+      url('fonts/EtihadAltis-Medium.woff') format('woff'),
+      url('fonts/EtihadAltis-Medium.ttf') format('truetype'),
+      url('fonts/EtihadAltis-Medium.svg#EtihadAltis-Medium') format('svg');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font1{
+  font-family: 'Etihad Altis';
+}
+
 .App {
   text-align: center;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .App-logo {

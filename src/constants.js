@@ -1,0 +1,1 @@
+export const LOCALHOSTURL = 'http://localhost:8888'
