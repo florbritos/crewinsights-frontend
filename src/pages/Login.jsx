@@ -5,6 +5,7 @@ import { useNotificationContext } from '../components/contexts/NotificationConte
 import { useLoaderModalContext } from '../components/contexts/LoaderModalContext';
 import * as Storage from "../services/storage_service";
 import { validateField, validateObjectFields } from '../helpers/field_rule_validations'; 
+import InputErrorMessage from '../components/InputErrorMessage';
 
 const Login = () => {
   const navigate = useNavigate()
@@ -64,7 +65,6 @@ const Login = () => {
       setAuthError(errors)
     } else {
       const res = await login(authInfo)
-      debugger
       res && handleResponse(res)
     }
     setOpen(false)
@@ -75,9 +75,9 @@ const Login = () => {
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <h2 className="mt-10 text-center text-4xl font-bold leading-9 tracking-tight text-gray-900 tracking-wider font1">
+          <h1 className="mt-10 text-center text-4xl font-bold leading-9 tracking-tight text-blueCI-1 tracking-wider font1">
             Crew<span className="text-orangeCI-1">Insights</span>
-          </h2>
+          </h1>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -98,14 +98,7 @@ const Login = () => {
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orangeCI-1 sm:text-sm sm:leading-6"
                   {...(authError.email && {"aria-describedby" : "error-email"})}
                 />
-                <div className={`rounded-full bg-red-800 text-white w-fit flex items-center justify-center text-xs px-3 py-0.5 m-1 ${authError.email ? "block" : "hidden"}`}>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="currentColor" className="size-4">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                  </svg>
-                  <p id="error-email">
-                    <span className='sr-only'>Error:</span> {authError.email}
-                  </p>
-                </div>
+                <InputErrorMessage error={authError.email} idError="error-email"/>
               </div>
             </div>
             <div>
@@ -129,14 +122,7 @@ const Login = () => {
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orangeCI-1 sm:text-sm sm:leading-6"
                   {...(authError.password && {"aria-describedby" : "error-password"})}
                 />
-                <div className={`rounded-full bg-red-800 text-white w-fit flex items-center justify-center text-xs px-3 py-0.5 m-1 ${authError.password ? "block" : "hidden"}`}>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="currentColor" className="size-4">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                  </svg>
-                  <p id="error-password">
-                  <span className='sr-only'>Error:</span> {authError.password}
-                  </p>
-                </div>
+                <InputErrorMessage error={authError.password} idError="error-password"/>
               </div>
             </div>
 

@@ -26,8 +26,24 @@ const AuthContextProvider = ({children}) => {
                 return response
             } 
         } catch {
-            setNotificationInformation({"status": "failes", "title": "Oops! Something went wrong", "message": "Please try again later"})
+            setNotificationInformation({"status": "failed", "title": "Oops! Something went wrong", "message": "Please try again later"})
         }
+    }
+
+    const logOut = async () => {
+        try{
+            debugger
+            const response = await AuthService.logout(user.id_user)
+            if (response){
+                setUser({})
+                Storage.erase('user')
+                Storage.eraseToken('token')
+                return response
+            } 
+        } catch {
+            setNotificationInformation({"status": "failed", "title": "Oops! Something went wrong", "message": "Please try again later"})
+        }
+        
     }
 
     return(
@@ -36,6 +52,7 @@ const AuthContextProvider = ({children}) => {
             user,
             setUser,
             isAuthenticated,
+            logOut
         }}>{children}</AuthContext.Provider>
     )
 

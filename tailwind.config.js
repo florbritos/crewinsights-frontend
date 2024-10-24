@@ -22,7 +22,7 @@ module.exports = {
     require('daisyui')
   ],
   daisyui: {
-    darkTheme: "light",  // Desactiva los temas para que DaisyUI no altere tu fondo
+    darkTheme: "light",
   },
 }
 

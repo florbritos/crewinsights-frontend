@@ -22,7 +22,7 @@ export function saveToken(name, value, days){
 }
 
 export function eraseToken(name){
-    //localStorage.removeItem(name)
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
 }
 
 export function getToken(name){

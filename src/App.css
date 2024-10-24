@@ -19,8 +19,12 @@
   text-align: center;
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
+}
+
+.App-content{
+  padding-top: 80px;
 }
 
 .App-logo {

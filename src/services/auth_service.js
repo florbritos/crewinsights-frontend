@@ -10,7 +10,6 @@ async function login(login_info) {
         //credentials: "include"
     })
     .then(function(response){
-        debugger
         if (response){
             return response.json()
         } 
@@ -18,11 +17,31 @@ async function login(login_info) {
         //     throw new Error('Oops! An unexpected error happened while trying to log you in. Please, try again later.')
         // }
     })
-    // .catch(function(){
-    //     throw new Error('Oops! An unexpected error happened while trying to log you in. Please, try again later.')
-    // })
+    .catch(function(){
+        throw new Error('Oops! An unexpected error happened while trying to log you in. Please, try again later.')
+    })
+}
+
+async function logout(id_user) {
+    return fetch(`${LOCALHOSTURL}/api/account/session`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({id_user: id_user}),
+        //credentials: "include"
+    })
+    .then(function(response){
+        if (response){
+            return response.json()
+        } 
+    })
+    .catch(()=>{
+        throw new Error('Oops! An unexpected error happened while trying to log you out. Please, try again later.')
+    })
 }
 
 export {
-    login
+    login,
+    logout
 }
