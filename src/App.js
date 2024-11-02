@@ -17,11 +17,14 @@ import Menu from './components/Menu'
 import Crewbot from './pages/crew/CrewBot';
 import CrewBotContextProvider from './components/contexts/CrewBotContext';
 import FlightReport from './pages/crew/FlightReport';
+import FlightReportContextProvider from './components/contexts/FlightReportContext';
+import NavigationContextProvider, { useNavigationContext } from './components/contexts/NavigationContext';
 
 const ProtectedRoute = ({ component: Component, roles }) => {
   const { isAuthenticated } = useAuthContext()
   const [ token, setToken ] = useState(null)
   const [ activeUser, setActiveUser ] = useState({})
+  const { handleNavigation, setFlagChangesToSave } = useNavigationContext();
   
 
   useEffect(()=>{
@@ -52,23 +55,27 @@ function App() {
     <div className="App">
       <NotificationContextProvider>
         <LoaderModalContextProvider>
-            <AuthContextProvider>
-                <CrewBotContextProvider>
+          <AuthContextProvider>
+            <CrewBotContextProvider>
+              <FlightReportContextProvider>
                 <LoaderModal/>
                 <Notification/>
                 <BrowserRouter>
-                  <Routes>
-                    <Route path='/login' element={<Login/>}/>
-                    <Route path='/' element={<Home/>}/>
-                    <Route path="/dashboard" element= {<><Menu/><ProtectedRoute component={Dashboard} roles={['admin']} /></>}/>
-                    <Route path="/crewhome" element= {<><Menu/><ProtectedRoute component={CrewHome} roles={['crew']} /></>}/>
-                    <Route path="/crewbot" element= {<><Menu/><ProtectedRoute component={Crewbot} roles={['crew']} /></>}/>
-                    <Route path="/flight-report" element= {<><Menu/><ProtectedRoute component={FlightReport} roles={['crew']} /></>}/>
-                    <Route path='/unauthorized' element={<PageNotFound/>}/>
-                  </Routes>
+                  <NavigationContextProvider>
+                    <Routes>
+                      <Route path='/login' element={<Login/>}/>
+                      <Route path='/' element={<Home/>}/>
+                      <Route path="/dashboard" element= {<><Menu/><ProtectedRoute component={Dashboard} roles={['admin']} /></>}/>
+                      <Route path="/crewhome" element= {<><Menu/><ProtectedRoute component={CrewHome} roles={['crew']} /></>}/>
+                      <Route path="/crewbot" element= {<><Menu/><ProtectedRoute component={Crewbot} roles={['crew']} /></>}/>
+                      <Route path="/flight-report" element= {<><Menu/><ProtectedRoute component={FlightReport} roles={['crew']} /></>}/>
+                      <Route path='/unauthorized' element={<PageNotFound/>}/>
+                    </Routes>
+                  </NavigationContextProvider>
                 </BrowserRouter>
-              </CrewBotContextProvider>
-            </AuthContextProvider>
+              </FlightReportContextProvider>
+            </CrewBotContextProvider>
+          </AuthContextProvider>
         </LoaderModalContextProvider>
       </NotificationContextProvider>
     </div>

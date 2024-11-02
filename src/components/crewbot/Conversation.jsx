@@ -18,7 +18,7 @@ return (
         <div className="relative">
             {
                 conversation.length === 0 &&
-                <div className="mt-90">
+                <div className="mt-90 text-center">
                     <h2 className="text-2xl font-bold tracking-tight text-blueCI-1 lg:text-5xl pb-4 lg:pb-0"><span className="text-orangeCI-1">Hey</span>, how can I help you?</h2>
                     <p className="lg:mt-6 text-sm sm:text-base text-blueCI-1 w-3/6 mx-auto">
                         Hi! I'm CrewBot. I can help answer any questions you have about flight issues or provide knowledge based on reports submitted by the crew. 

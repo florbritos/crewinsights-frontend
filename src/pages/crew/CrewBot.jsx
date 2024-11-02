@@ -28,7 +28,7 @@ const Crewbot = () => {
     const { setConversation, chats, setChats, getAllChatsByUserId, loader, setActiveChatId, activeChatId, deleteChat, conversation } = useCrewBotContext()
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const [chatIdToDelete, setChatIdToDelete] = useState(false)
-    const [ showDeleteConfirmationWindow, setShowDeleteConfirmationWindow ] = useState(false)
+    const [ showDeleteAlert, setShowDeleteAlert ] = useState(false)
     
 
     useEffect(()=>{
@@ -81,12 +81,12 @@ const Crewbot = () => {
     }
 
     const handleDeleteChat = (id_chat) =>{
-        setShowDeleteConfirmationWindow(true)
+        setShowDeleteAlert(true)
         setChatIdToDelete(id_chat)
     }
 
     const eraseChat = async () => {
-        setShowDeleteConfirmationWindow(false)
+        setShowDeleteAlert(false)
         await deleteChat(chatIdToDelete)
         setNewChat()
     }
@@ -254,8 +254,8 @@ const Crewbot = () => {
             </div>
         </div>
         <PopUpModal 
-            open={showDeleteConfirmationWindow} 
-            setOpen={setShowDeleteConfirmationWindow} 
+            open={showDeleteAlert} 
+            setOpen={setShowDeleteAlert} 
             title={'You are about to delete a chat'}
             message={'Are you sure you want to continue?'}
             action={eraseChat}

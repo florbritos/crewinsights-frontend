@@ -24,6 +24,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useLoaderModalContext } from './contexts/LoaderModalContext';
 import { useAuthContext } from './contexts/AuthContext';
 import { useNotificationContext } from './contexts/NotificationContext';
+import { useNavigationContext } from './contexts/NavigationContext';
 
 const options = [
     {
@@ -37,20 +38,8 @@ const options = [
         description: 'Edit your profile information and update account settings.',
         href: '#',
         icon: PencilSquareIcon,
-    },
-    // { name: 'Security', description: 'Your customers’ data will be safe and secure', href: '#', icon: FingerPrintIcon },
-    // {
-    //     name: 'Integrations',
-    //     description: 'Your customers’ data will be safe and secure',
-    //     href: '#',
-    //     icon: SquaresPlusIcon,
-    // },
+    }
 ]
-// const callsToAction = [
-//     { name: 'Watch demo', href: '#', icon: PlayCircleIcon },
-//     { name: 'Contact sales', href: '#', icon: PhoneIcon },
-//     { name: 'View all products', href: '#', icon: RectangleGroupIcon },
-// ]
 
 function CurrentPage() {
     const location = useLocation();
@@ -58,7 +47,8 @@ function CurrentPage() {
 
     const section = {
         "crewhome": "Home",
-        "crewbot" : "CrewBot"
+        "crewbot" : "CrewBot",
+        "flight-report": "Flight-Report"
     }
     const lastPart = currentPath.split('/').filter(Boolean).pop();
 
@@ -73,6 +63,7 @@ export default function Example() {
     const { setOpen } = useLoaderModalContext()
     const { logOut, user } = useAuthContext()
     const { setNotificationInformation } = useNotificationContext()
+    const { handleRouteChange } = useNavigationContext()
     const navigate = useNavigate()
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -93,7 +84,11 @@ export default function Example() {
         <header className="fixed top-0 w-full isolate z-10 bg-slate-50 h-20">
             <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
                 <div className="flex lg:flex-1 items-end">
-                    <Link to={"/"} className="-m-1.5 p-1.5 font1 text-1xl font-bold text-blueCI-1">
+                    <Link 
+                        to={"/"} 
+                        onClick={e => { e.preventDefault(); handleRouteChange("/")}}
+                        className="-m-1.5 p-1.5 font1 text-1xl font-bold text-blueCI-1"
+                    >
                         Crew<span className="text-orangeCI-1">Insights</span>
                     </Link>
                     <CurrentPage/>
@@ -109,6 +104,13 @@ export default function Example() {
                     </button>
                 </div>
                 <PopoverGroup className="hidden lg:flex lg:gap-x-12">
+                    <Link 
+                        to={"/"}
+                        onClick={e => { e.preventDefault(); handleRouteChange("/")}}
+                        className={`text-sm font-semibold leading-6 text-gray-900 hover:text-orangeCI-1`}
+                    >
+                        Home
+                    </Link>
                     <Popover>
                         <PopoverButton className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900 hover:text-orangeCI-1">
                             Profile
@@ -151,16 +153,32 @@ export default function Example() {
                             </div> */}
                         </PopoverPanel>
                     </Popover>
-                    <Link to={"/crewbot"} className={`text-sm font-semibold leading-6 text-gray-900 hover:text-orangeCI-1 ${user.role === "crew" ? "block" : "hidden"}`}>
+                    <Link 
+                        to={"/crewbot"}
+                        onClick={e => { e.preventDefault(); handleRouteChange("/crewbot")}}
+                        className={`text-sm font-semibold leading-6 text-gray-900 hover:text-orangeCI-1 ${user.role === "crew" ? "block" : "hidden"}`}
+                    >
                         CrewBot
                     </Link>
-                    <Link to={"/flight-report"} className={`text-sm font-semibold leading-6 text-gray-900 hover:text-orangeCI-1 ${user.role === "crew" ? "block" : "hidden"}`}>
+                    <Link 
+                        to={"/flight-report"} 
+                        onClick={e => { e.preventDefault(); handleRouteChange("/flight-report")}}
+                        className={`text-sm font-semibold leading-6 text-gray-900 hover:text-orangeCI-1 ${user.role === "crew" ? "block" : "hidden"}`}
+                    >
                         Flight Report
                     </Link>
-                    <Link to={"/dashboard"} className={`text-sm font-semibold leading-6 text-gray-900 hover:text-orangeCI-1 ${user.role === "admin" ? "block" : "hidden"}`}>
+                    <Link 
+                        to={"/dashboard"} 
+                        onClick={e => { e.preventDefault(); handleRouteChange("/dashboard")}}
+                        className={`text-sm font-semibold leading-6 text-gray-900 hover:text-orangeCI-1 ${user.role === "admin" ? "block" : "hidden"}`}
+                    >
                         Dashboard
                     </Link>
-                    <Link to={"/user-management"} className={`text-sm font-semibold leading-6 text-gray-900 hover:text-orangeCI-1 ${user.role === "admin" ? "block" : "hidden"}`}>
+                    <Link 
+                        to={"/user-management"} 
+                        onClick={e => { e.preventDefault(); handleRouteChange("/user-management")}}
+                        className={`text-sm font-semibold leading-6 text-gray-900 hover:text-orangeCI-1 ${user.role === "admin" ? "block" : "hidden"}`}
+                    >
                         User Management
                     </Link>
                 </PopoverGroup>
@@ -174,12 +192,16 @@ export default function Example() {
                 <div className="fixed inset-0 z-10" />
                     <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-slate-50 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
                 <div className="flex items-center justify-between">
-                    <a href="#" className="-m-1.5 p-1.5 font1 font-bold text-blueCI-1">
+                    <Link 
+                        to={'/'} 
+                        onClick={e => { e.preventDefault(); handleRouteChange("/")}}
+                        className="-m-1.5 p-1.5 font1 font-bold text-blueCI-1"
+                    >
                         Crew<span className="text-orangeCI-1">Insights</span>
-                    </a>
+                    </Link>
                     <button
                         type="button"
-                        onClick={() => setMobileMenuOpen(false)}
+                        onClick={e => { e.preventDefault(); handleRouteChange("/")}}
                         className="-m-2.5 rounded-md p-2.5 text-gray-700"
                     >
                         <span className="sr-only">Close menu</span>
@@ -189,6 +211,13 @@ export default function Example() {
                 <div className="mt-6 flow-root">
                     <div className="-my-6 divide-y divide-gray-500/10">
                         <div className="space-y-2 py-6">
+                            <Link
+                                to={"/"}
+                                onClick={e => { e.preventDefault(); handleRouteChange("/")}}
+                                className={`-mx-3 rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50`}
+                            >
+                            Home
+                            </Link>
                             <Disclosure as="div" className="-mx-3">
                                 <DisclosureButton className="group flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
                                     Profile
@@ -209,24 +238,28 @@ export default function Example() {
                             </Disclosure>
                             <Link
                                 to={"/crewbot"}
+                                onClick={e => { e.preventDefault(); handleRouteChange("/crewbot")}}
                                 className={`-mx-3 rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 ${user.role === "crew" ? "block" : "hidden"}`}
                             >
                             CrewBot
                             </Link>
                             <Link
                                 to={"/flight-report"}
+                                onClick={e => { e.preventDefault(); handleRouteChange("/flight-report")}}
                                 className={`-mx-3 rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 ${user.role === "crew" ? "block" : "hidden"}`}
                             >
                             Flight Report
                             </Link>
                             <Link
                                 to={"/dashboard"}
+                                onClick={e => { e.preventDefault(); handleRouteChange("/dashboard")}}
                                 className={`-mx-3 rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 ${user.role === "admin" ? "block" : "hidden"}`}
                             >
                             Dashboard
                             </Link>
                             <Link
                                 to={"/user-management"}
+                                onClick={e => { e.preventDefault(); handleRouteChange("/user-management")}}
                                 className={`-mx-3 rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 ${user.role === "admin" ? "block" : "hidden"}`}
                             >
                             User Management

@@ -65,7 +65,7 @@ const CrewHome = () => {
                         <rect fill="url(#1f932ae7-37de-4c0a-a8b0-a6e3b4d44b84)" width="100%" height="100%" strokeWidth={0} />
                 </svg>
 
-                <h1 className='text-5xl mb-32 font-bold text-orangeCI-1'>Welcome, 
+                <h1 className='text-5xl mb-32 font-bold text-orangeCI-1 text-center'>Welcome, 
                     <span className='block text-2xl font-normal text-black'>{ user.first_name }</span>
                 </h1>
                 <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-gray-200 shadow sm:grid sm:grid-cols-2 sm:gap-px sm:divide-y-0 max-w-4xl">
