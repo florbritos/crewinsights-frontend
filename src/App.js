@@ -19,6 +19,7 @@ import CrewBotContextProvider from './components/contexts/CrewBotContext';
 import FlightReport from './pages/crew/FlightReport';
 import FlightReportContextProvider from './components/contexts/FlightReportContext';
 import NavigationContextProvider, { useNavigationContext } from './components/contexts/NavigationContext';
+import DashboardContextProvider from './components/contexts/DashboardContext';
 
 const ProtectedRoute = ({ component: Component, roles }) => {
   const { isAuthenticated } = useAuthContext()
@@ -56,25 +57,27 @@ function App() {
       <NotificationContextProvider>
         <LoaderModalContextProvider>
           <AuthContextProvider>
-            <CrewBotContextProvider>
-              <FlightReportContextProvider>
-                <LoaderModal/>
-                <Notification/>
-                <BrowserRouter>
-                  <NavigationContextProvider>
-                    <Routes>
-                      <Route path='/login' element={<Login/>}/>
-                      <Route path='/' element={<Home/>}/>
-                      <Route path="/dashboard" element= {<><Menu/><ProtectedRoute component={Dashboard} roles={['admin']} /></>}/>
-                      <Route path="/crewhome" element= {<><Menu/><ProtectedRoute component={CrewHome} roles={['crew']} /></>}/>
-                      <Route path="/crewbot" element= {<><Menu/><ProtectedRoute component={Crewbot} roles={['crew']} /></>}/>
-                      <Route path="/flight-report" element= {<><Menu/><ProtectedRoute component={FlightReport} roles={['crew']} /></>}/>
-                      <Route path='/unauthorized' element={<PageNotFound/>}/>
-                    </Routes>
-                  </NavigationContextProvider>
-                </BrowserRouter>
-              </FlightReportContextProvider>
-            </CrewBotContextProvider>
+            <DashboardContextProvider>
+              <CrewBotContextProvider>
+                <FlightReportContextProvider>
+                  <LoaderModal/>
+                  <Notification/>
+                  <BrowserRouter>
+                    <NavigationContextProvider>
+                      <Routes>
+                        <Route path='/login' element={<Login/>}/>
+                        <Route path='/' element={<Home/>}/>
+                        <Route path="/dashboard" element= {<><Menu/><ProtectedRoute component={Dashboard} roles={['admin']} /></>}/>
+                        <Route path="/crewhome" element= {<><Menu/><ProtectedRoute component={CrewHome} roles={['crew']} /></>}/>
+                        <Route path="/crewbot" element= {<><Menu/><ProtectedRoute component={Crewbot} roles={['crew']} /></>}/>
+                        <Route path="/flight-report" element= {<><Menu/><ProtectedRoute component={FlightReport} roles={['crew']} /></>}/>
+                        <Route path='/unauthorized' element={<PageNotFound/>}/>
+                      </Routes>
+                    </NavigationContextProvider>
+                  </BrowserRouter>
+                </FlightReportContextProvider>
+              </CrewBotContextProvider>
+            </DashboardContextProvider>
           </AuthContextProvider>
         </LoaderModalContextProvider>
       </NotificationContextProvider>

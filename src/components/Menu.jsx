@@ -48,7 +48,8 @@ function CurrentPage() {
     const section = {
         "crewhome": "Home",
         "crewbot" : "CrewBot",
-        "flight-report": "Flight-Report"
+        "flight-report": "Flight-Report",
+        "dashboard": "Home"
     }
     const lastPart = currentPath.split('/').filter(Boolean).pop();
 
@@ -167,13 +168,13 @@ export default function Example() {
                     >
                         Flight Report
                     </Link>
-                    <Link 
+                    {/* <Link 
                         to={"/dashboard"} 
                         onClick={e => { e.preventDefault(); handleRouteChange("/dashboard")}}
                         className={`text-sm font-semibold leading-6 text-gray-900 hover:text-orangeCI-1 ${user.role === "admin" ? "block" : "hidden"}`}
                     >
                         Dashboard
-                    </Link>
+                    </Link> */}
                     <Link 
                         to={"/user-management"} 
                         onClick={e => { e.preventDefault(); handleRouteChange("/user-management")}}
@@ -250,13 +251,13 @@ export default function Example() {
                             >
                             Flight Report
                             </Link>
-                            <Link
+                            {/* <Link
                                 to={"/dashboard"}
                                 onClick={e => { e.preventDefault(); handleRouteChange("/dashboard")}}
                                 className={`-mx-3 rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 ${user.role === "admin" ? "block" : "hidden"}`}
                             >
                             Dashboard
-                            </Link>
+                            </Link> */}
                             <Link
                                 to={"/user-management"}
                                 onClick={e => { e.preventDefault(); handleRouteChange("/user-management")}}

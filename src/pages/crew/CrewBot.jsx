@@ -13,7 +13,7 @@ import {
     PlusIcon,
     XCircleIcon
 } from '@heroicons/react/24/outline'
-import Loader from "../../components/Loader"
+import LoaderXS from "../../components/LoaderXS"
 import PopUpModal from "../../components/PopUpModal"
 
 const navigation = [
@@ -26,8 +26,8 @@ function classNames(...classes) {
 
 const Crewbot = () => {
     const { setConversation, chats, setChats, getAllChatsByUserId, loader, setActiveChatId, activeChatId, deleteChat, conversation } = useCrewBotContext()
-    const [sidebarOpen, setSidebarOpen] = useState(false)
-    const [chatIdToDelete, setChatIdToDelete] = useState(false)
+    const [ sidebarOpen, setSidebarOpen ] = useState(false)
+    const [ chatIdToDelete, setChatIdToDelete ] = useState(false)
     const [ showDeleteAlert, setShowDeleteAlert ] = useState(false)
     
 
@@ -58,7 +58,6 @@ const Crewbot = () => {
     const setNewChat = () => {
         setActiveChatId("")
         setConversation([])
-        
     }
 
     const getSelectedChat = (id_chat) => {
@@ -150,7 +149,7 @@ const Crewbot = () => {
                                     </li>
                                     <li>
                                         <div className="text-xs font-semibold leading-6 text-gray-400">Your chats</div>
-                                        { loader && <Loader /> }
+                                        { loader && <LoaderXS /> }
                                         <ul role="list" className="-mx-2 mt-2 space-y-1">
                                             {chats.map((chat) => (
                                             <li key={chat.id_chat}>
@@ -208,7 +207,7 @@ const Crewbot = () => {
                             </li>
                             <li>
                                 <div className="text-xs font-semibold leading-6 text-gray-400">Your chats</div>
-                                { loader && <Loader /> } 
+                                { loader && <LoaderXS /> } 
                                 <ul role="list" className="-mx-2 mt-2 space-y-1 flex flex-col justify-start overflow-y-auto">
                                     {chats.map((chat) => (
                                     <li key={chat.id_chat} className="tooltip flex items-center justify-between" data-tip={chat.title}>
