@@ -25,6 +25,7 @@ import { useLoaderModalContext } from './contexts/LoaderModalContext';
 import { useAuthContext } from './contexts/AuthContext';
 import { useNotificationContext } from './contexts/NotificationContext';
 import { useNavigationContext } from './contexts/NavigationContext';
+import PopUpModal from './PopUpModal';
 
 const options = [
     {
@@ -60,15 +61,16 @@ function CurrentPage() {
     );
 }
 
-export default function Example() {
+export default function Menu() {
     const { setOpen } = useLoaderModalContext()
     const { logOut, user } = useAuthContext()
     const { setNotificationInformation } = useNotificationContext()
     const { handleRouteChange } = useNavigationContext()
     const navigate = useNavigate()
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const [ showSignOutAlert, setShowSignOutAlert ] = useState(false)
 
-    const onSubmit = async (e) => {
+    const signOut = async (e) => {
         e.preventDefault()
         setOpen(true)
         const res= await logOut()
@@ -82,6 +84,7 @@ export default function Example() {
     }
 
     return (
+    <>
         <header className="fixed top-0 w-full isolate z-10 bg-slate-50 h-20">
             <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
                 <div className="flex lg:flex-1 items-end">
@@ -183,11 +186,20 @@ export default function Example() {
                         User Management
                     </Link>
                 </PopoverGroup>
-                <form onSubmit={onSubmit} className="hidden lg:flex lg:flex-1 lg:justify-end">
+                <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+                    <button 
+                        type="button" 
+                        className="text-sm font-semibold leading-6 text-gray-900 hover:text-orangeCI-1"
+                        onClick={() => setShowSignOutAlert(true)}
+                    >
+                        Log out <span aria-hidden="true">&rarr;</span>
+                    </button>
+                </div>
+                {/* <form onSubmit={onSubmit} className="hidden lg:flex lg:flex-1 lg:justify-end">
                     <button type="submit" className="text-sm font-semibold leading-6 text-gray-900 hover:text-orangeCI-1">
                         Log out <span aria-hidden="true">&rarr;</span>
                     </button>
-                </form>
+                </form> */}
             </nav>
             <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
                 <div className="fixed inset-0 z-10" />
@@ -195,14 +207,14 @@ export default function Example() {
                 <div className="flex items-center justify-between">
                     <Link 
                         to={'/'} 
-                        onClick={e => { e.preventDefault(); handleRouteChange("/")}}
+                        onClick={e => { e.preventDefault(); handleRouteChange("/"); setMobileMenuOpen(false)}}
                         className="-m-1.5 p-1.5 font1 font-bold text-blueCI-1"
                     >
                         Crew<span className="text-orangeCI-1">Insights</span>
                     </Link>
                     <button
                         type="button"
-                        onClick={e => { e.preventDefault(); handleRouteChange("/")}}
+                        onClick={() => setMobileMenuOpen(false)}
                         className="-m-2.5 rounded-md p-2.5 text-gray-700"
                     >
                         <span className="sr-only">Close menu</span>
@@ -214,7 +226,7 @@ export default function Example() {
                         <div className="space-y-2 py-6">
                             <Link
                                 to={"/"}
-                                onClick={e => { e.preventDefault(); handleRouteChange("/")}}
+                                onClick={e => { e.preventDefault(); handleRouteChange("/"); setMobileMenuOpen(false)}}
                                 className={`-mx-3 rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50`}
                             >
                             Home
@@ -239,14 +251,14 @@ export default function Example() {
                             </Disclosure>
                             <Link
                                 to={"/crewbot"}
-                                onClick={e => { e.preventDefault(); handleRouteChange("/crewbot")}}
+                                onClick={e => { e.preventDefault(); handleRouteChange("/crewbot"); setMobileMenuOpen(false)}}
                                 className={`-mx-3 rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 ${user.role === "crew" ? "block" : "hidden"}`}
                             >
                             CrewBot
                             </Link>
                             <Link
                                 to={"/flight-report"}
-                                onClick={e => { e.preventDefault(); handleRouteChange("/flight-report")}}
+                                onClick={e => { e.preventDefault(); handleRouteChange("/flight-report"); setMobileMenuOpen(false)}}
                                 className={`-mx-3 rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 ${user.role === "crew" ? "block" : "hidden"}`}
                             >
                             Flight Report
@@ -260,24 +272,37 @@ export default function Example() {
                             </Link> */}
                             <Link
                                 to={"/user-management"}
-                                onClick={e => { e.preventDefault(); handleRouteChange("/user-management")}}
+                                onClick={e => { e.preventDefault(); handleRouteChange("/user-management"); setMobileMenuOpen(false)}}
                                 className={`-mx-3 rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 ${user.role === "admin" ? "block" : "hidden"}`}
                             >
                             User Management
                             </Link>
                         </div>
-                        <form onSubmit={onSubmit} className="py-6">
+                        <div className="py-6">
                             <button
-                                type='submit'
-                                className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                            >
-                            Log out
+                                    type='button'
+                                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                    onClick={() => setShowSignOutAlert(true)}
+                                >
+                                Log out
                             </button>
-                        </form>
+                        </div>
+                        
+                        {/* <form onSubmit={onSubmit} className="py-6">
+                            
+                        </form> */}
                     </div>
                 </div>
                 </DialogPanel>
             </Dialog>
         </header>
+        <PopUpModal 
+            open={showSignOutAlert} 
+            setOpen={setShowSignOutAlert} 
+            title={'You are about to sign out'}
+            message={'Are you sure you want to continue?'}
+            action={signOut}
+        />
+    </>
     )
 }

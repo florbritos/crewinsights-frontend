@@ -6,12 +6,17 @@ import { useLoaderModalContext } from '../components/contexts/LoaderModalContext
 import * as Storage from "../services/storage_service";
 import { validateField, validateObjectFields } from '../helpers/field_rule_validations'; 
 import InputErrorMessage from '../components/InputErrorMessage';
+import {
+  EyeIcon,
+  EyeSlashIcon
+} from '@heroicons/react/24/outline'
 
 const Login = () => {
   const navigate = useNavigate()
   const { setOpen } = useLoaderModalContext()
   const { login, user, setUser, isAuthenticated } = useAuthContext()
   const { setNotificationInformation } = useNotificationContext()
+  const [ showPassword, setShowPassword ] = useState(false)
   const [authInfo, setAuthInfo] = useState({
     email: null,
     password: null
@@ -113,15 +118,31 @@ const Login = () => {
                 </div>
               </div>
               <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  onChange={handleOnChange}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orangeCI-1 sm:text-sm sm:leading-6"
-                  {...(authError.password && {"aria-describedby" : "error-password"})}
-                />
+                <div className="flex items-center justify-center">
+                  <input
+                    id="password"
+                    name="password"
+                    type={`${!showPassword ? 'password': 'text'}`}
+                    autoComplete="current-password"
+                    onChange={handleOnChange}
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orangeCI-1 sm:text-sm sm:leading-6"
+                    {...(authError.password && {"aria-describedby" : "error-password"})}
+                  />
+                  {
+                    !showPassword ?
+                    <EyeIcon 
+                      aria-hidden="true" 
+                      className="h-6 w-6 ms-2 hover:text-orangeCI-1"
+                      onClick={() => setShowPassword(true)}
+                    />
+                    :
+                    <EyeSlashIcon 
+                      aria-hidden="true" 
+                      className="h-6 w-6 ms-2 hover:text-orangeCI-1"
+                      onClick={() => setShowPassword(false)}
+                    />
+                  }
+                </div>
                 <InputErrorMessage error={authError.password} idError="error-password"/>
               </div>
             </div>

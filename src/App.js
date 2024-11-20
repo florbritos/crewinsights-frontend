@@ -20,13 +20,13 @@ import FlightReport from './pages/crew/FlightReport';
 import FlightReportContextProvider from './components/contexts/FlightReportContext';
 import NavigationContextProvider, { useNavigationContext } from './components/contexts/NavigationContext';
 import DashboardContextProvider from './components/contexts/DashboardContext';
+import PageNotEntitlements from './pages/PageNotEntitlements';
 
 const ProtectedRoute = ({ component: Component, roles }) => {
   const { isAuthenticated } = useAuthContext()
   const [ token, setToken ] = useState(null)
   const [ activeUser, setActiveUser ] = useState({})
   const { handleNavigation, setFlagChangesToSave } = useNavigationContext();
-  
 
   useEffect(()=>{
     const [ token, activeUser ] = isAuthenticated()
@@ -71,7 +71,8 @@ function App() {
                         <Route path="/crewhome" element= {<><Menu/><ProtectedRoute component={CrewHome} roles={['crew']} /></>}/>
                         <Route path="/crewbot" element= {<><Menu/><ProtectedRoute component={Crewbot} roles={['crew']} /></>}/>
                         <Route path="/flight-report" element= {<><Menu/><ProtectedRoute component={FlightReport} roles={['crew']} /></>}/>
-                        <Route path='/unauthorized' element={<PageNotFound/>}/>
+                        <Route path='/unauthorized' element={<PageNotEntitlements/>}/>
+                        <Route path="*" element={<PageNotFound />} />
                       </Routes>
                     </NavigationContextProvider>
                   </BrowserRouter>

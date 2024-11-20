@@ -12,7 +12,6 @@ const AuthContextProvider = ({children}) => {
     const [user, setUser] = useState({})
 
     const isAuthenticated = () => {
-        console.log("ñaña")
         const activeUser = Storage.get('user')
         const token = Storage.getToken('token') ?? ""
         token && setUser(activeUser)
@@ -32,7 +31,6 @@ const AuthContextProvider = ({children}) => {
 
     const logOut = async () => {
         try{
-            debugger
             const response = await AuthService.logout(user.id_user)
             if (response){
                 setUser({})

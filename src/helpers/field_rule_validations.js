@@ -41,7 +41,6 @@ const field_rules = {
 export function validateField(field, value, data = {}) {
     let error = ""
     const rules = field_rules[field]
-    debugger
     rules.some(rule => {
         const [rule_name, rule_value] = rule.split(':')
         
@@ -146,19 +145,24 @@ export function validateObjectFields(obj){
 
 export const report = [
     {
+        "graph_data": null,
+        "id_metric": "123456"
+    },
+    {
         "graph_data": {
             "data": [
                 {
-                    "text": [
-                        "1",
-                        "1"
-                    ],
-                    "textposition": "auto",
                     "x": [
-                        "Power Failure Affecting Ovens",
-                        "Communication Issues"
+                        "Problemas médicos con los pasajeros",
+                        "Humo de un dispositivo de vapeo",
+                        "Cambiar de ruta debido a una tormenta eléctrica",
+                        "Problemas técnicos con una puerta de emergencia",
+                        "Demora en la carga de equipaje"
                     ],
                     "y": [
+                        1,
+                        1,
+                        1,
                         1,
                         1
                     ],
@@ -983,14 +987,14 @@ export const report = [
                     }
                 },
                 "title": {
-                    "text": "Most Frequent Bad Experiences During Meal Service",
+                    "text": "Causas más frecuentes en los retrasos de los vuelos",
                     "font": {
                         "size": 16
                     }
                 },
                 "xaxis": {
                     "title": {
-                        "text": "Experience",
+                        "text": "Causas",
                         "font": {
                             "size": 14
                         }
@@ -998,13 +1002,13 @@ export const report = [
                     "type": "category",
                     "range": [
                         -0.5,
-                        1.5
+                        4.5
                     ],
                     "autorange": true
                 },
                 "yaxis": {
                     "title": {
-                        "text": "Number of Incidents",
+                        "text": "Cantidad de veces informadas",
                         "font": {
                             "size": 14
                         }
@@ -1031,31 +1035,20 @@ export const report = [
                 }
             }
         },
-        "insight": "The graph shows that the most frequent bad experiences during meal service are \"Power Failure Affecting Ovens\" and \"Communication Issues,\" each occurring once. This indicates that both issues are equally common in this context."
+        "id_metric": "6738a0594e520f178befe0cd"
     },
     {
         "graph_data": {
             "data": [
                 {
-                    "marker": {
-                        "color": "indianred"
-                    },
                     "x": [
-                        "Fume Events",
-                        "Cabin Temperature",
-                        "Odor Events",
-                        "Lithium Ion Battery Issues",
-                        "Smoke Events",
-                        "Passenger Misconduct",
-                        "Equipment Malfunction",
-                        "Abnormal Landing Preparations"
+                        "Aeropuerto de Lahore (LHE)",
+                        "Chicago",
+                        "Madrid",
+                        "No se especifica, pero perteneciente a la puerta de salida de emergencia"
                     ],
                     "y": [
-                        5,
-                        4,
-                        3,
-                        2,
-                        2,
+                        1,
                         1,
                         1,
                         1
@@ -1880,30 +1873,29 @@ export const report = [
                         }
                     }
                 },
-                "xaxis": {
-                    "title": {
-                        "text": "Issue Type",
-                        "font": {
-                            "size": 14
-                        }
-                    },
-                    "tickangle": -45,
-                    "type": "category",
-                    "range": [
-                        -0.5,
-                        7.5
-                    ],
-                    "autorange": true
-                },
                 "title": {
-                    "text": "Most Frequent Issues Faced by Cabin Crew Onboard",
+                    "text": "Destinos que sufren frecuentemente retrasos",
                     "font": {
                         "size": 16
                     }
                 },
+                "xaxis": {
+                    "title": {
+                        "text": "Destinos",
+                        "font": {
+                            "size": 14
+                        }
+                    },
+                    "type": "category",
+                    "range": [
+                        -0.5,
+                        3.5
+                    ],
+                    "autorange": true
+                },
                 "yaxis": {
                     "title": {
-                        "text": "Frequency",
+                        "text": "Cantidad de Retrasos",
                         "font": {
                             "size": 14
                         }
@@ -1911,7 +1903,7 @@ export const report = [
                     "type": "linear",
                     "range": [
                         0,
-                        5.2631578947368425
+                        1.0526315789473684
                     ],
                     "autorange": true
                 },
@@ -1930,927 +1922,6 @@ export const report = [
                 }
             }
         },
-        "insight": "The graph shows the most frequent issues faced by cabin crew onboard. The insights are:\n\n1. **Fume Events** are the most frequent issue, with a frequency of 4.\n2. **Cabin Temperature** issues are the second most common, slightly less frequent than fume events.\n3. **Odor Events** and **Lithium Ion Battery Issues** follow, with moderate frequencies.\n4. **Smoke Events**, **Passenger Misconduct**, **Equipment Malfunction**, and **Abnormal Landing Preparations** are less frequent, with similar lower frequencies.\n\nOverall, fume events and cabin temperature are the most significant concerns for cabin crew."
-    },
-    {
-        "graph_data": {
-            "data": [
-                {
-                    "alignmentgroup": "True",
-                    "hovertemplate": "Aircraft Type=%{x}<br>Number of Reports=%{y}<extra></extra>",
-                    "legendgroup": "",
-                    "marker": {
-                        "color": "#636efa",
-                        "pattern": {
-                            "shape": ""
-                        }
-                    },
-                    "name": "",
-                    "offsetgroup": "",
-                    "orientation": "v",
-                    "showlegend": false,
-                    "textposition": "auto",
-                    "x": [
-                        "B787",
-                        "A321",
-                        "B777",
-                        "CRJ-900",
-                        "A320",
-                        "B737-800",
-                        "Medium Transport, Low Wing, 2 Turbojet Eng"
-                    ],
-                    "xaxis": "x",
-                    "y": [
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1
-                    ],
-                    "yaxis": "y",
-                    "type": "bar"
-                }
-            ],
-            "layout": {
-                "template": {
-                    "data": {
-                        "histogram2dcontour": [
-                            {
-                                "type": "histogram2dcontour",
-                                "colorbar": {
-                                    "outlinewidth": 0,
-                                    "ticks": ""
-                                },
-                                "colorscale": [
-                                    [
-                                        0,
-                                        "#0d0887"
-                                    ],
-                                    [
-                                        0.1111111111111111,
-                                        "#46039f"
-                                    ],
-                                    [
-                                        0.2222222222222222,
-                                        "#7201a8"
-                                    ],
-                                    [
-                                        0.3333333333333333,
-                                        "#9c179e"
-                                    ],
-                                    [
-                                        0.4444444444444444,
-                                        "#bd3786"
-                                    ],
-                                    [
-                                        0.5555555555555556,
-                                        "#d8576b"
-                                    ],
-                                    [
-                                        0.6666666666666666,
-                                        "#ed7953"
-                                    ],
-                                    [
-                                        0.7777777777777778,
-                                        "#fb9f3a"
-                                    ],
-                                    [
-                                        0.8888888888888888,
-                                        "#fdca26"
-                                    ],
-                                    [
-                                        1,
-                                        "#f0f921"
-                                    ]
-                                ]
-                            }
-                        ],
-                        "choropleth": [
-                            {
-                                "type": "choropleth",
-                                "colorbar": {
-                                    "outlinewidth": 0,
-                                    "ticks": ""
-                                }
-                            }
-                        ],
-                        "histogram2d": [
-                            {
-                                "type": "histogram2d",
-                                "colorbar": {
-                                    "outlinewidth": 0,
-                                    "ticks": ""
-                                },
-                                "colorscale": [
-                                    [
-                                        0,
-                                        "#0d0887"
-                                    ],
-                                    [
-                                        0.1111111111111111,
-                                        "#46039f"
-                                    ],
-                                    [
-                                        0.2222222222222222,
-                                        "#7201a8"
-                                    ],
-                                    [
-                                        0.3333333333333333,
-                                        "#9c179e"
-                                    ],
-                                    [
-                                        0.4444444444444444,
-                                        "#bd3786"
-                                    ],
-                                    [
-                                        0.5555555555555556,
-                                        "#d8576b"
-                                    ],
-                                    [
-                                        0.6666666666666666,
-                                        "#ed7953"
-                                    ],
-                                    [
-                                        0.7777777777777778,
-                                        "#fb9f3a"
-                                    ],
-                                    [
-                                        0.8888888888888888,
-                                        "#fdca26"
-                                    ],
-                                    [
-                                        1,
-                                        "#f0f921"
-                                    ]
-                                ]
-                            }
-                        ],
-                        "heatmap": [
-                            {
-                                "type": "heatmap",
-                                "colorbar": {
-                                    "outlinewidth": 0,
-                                    "ticks": ""
-                                },
-                                "colorscale": [
-                                    [
-                                        0,
-                                        "#0d0887"
-                                    ],
-                                    [
-                                        0.1111111111111111,
-                                        "#46039f"
-                                    ],
-                                    [
-                                        0.2222222222222222,
-                                        "#7201a8"
-                                    ],
-                                    [
-                                        0.3333333333333333,
-                                        "#9c179e"
-                                    ],
-                                    [
-                                        0.4444444444444444,
-                                        "#bd3786"
-                                    ],
-                                    [
-                                        0.5555555555555556,
-                                        "#d8576b"
-                                    ],
-                                    [
-                                        0.6666666666666666,
-                                        "#ed7953"
-                                    ],
-                                    [
-                                        0.7777777777777778,
-                                        "#fb9f3a"
-                                    ],
-                                    [
-                                        0.8888888888888888,
-                                        "#fdca26"
-                                    ],
-                                    [
-                                        1,
-                                        "#f0f921"
-                                    ]
-                                ]
-                            }
-                        ],
-                        "heatmapgl": [
-                            {
-                                "type": "heatmapgl",
-                                "colorbar": {
-                                    "outlinewidth": 0,
-                                    "ticks": ""
-                                },
-                                "colorscale": [
-                                    [
-                                        0,
-                                        "#0d0887"
-                                    ],
-                                    [
-                                        0.1111111111111111,
-                                        "#46039f"
-                                    ],
-                                    [
-                                        0.2222222222222222,
-                                        "#7201a8"
-                                    ],
-                                    [
-                                        0.3333333333333333,
-                                        "#9c179e"
-                                    ],
-                                    [
-                                        0.4444444444444444,
-                                        "#bd3786"
-                                    ],
-                                    [
-                                        0.5555555555555556,
-                                        "#d8576b"
-                                    ],
-                                    [
-                                        0.6666666666666666,
-                                        "#ed7953"
-                                    ],
-                                    [
-                                        0.7777777777777778,
-                                        "#fb9f3a"
-                                    ],
-                                    [
-                                        0.8888888888888888,
-                                        "#fdca26"
-                                    ],
-                                    [
-                                        1,
-                                        "#f0f921"
-                                    ]
-                                ]
-                            }
-                        ],
-                        "contourcarpet": [
-                            {
-                                "type": "contourcarpet",
-                                "colorbar": {
-                                    "outlinewidth": 0,
-                                    "ticks": ""
-                                }
-                            }
-                        ],
-                        "contour": [
-                            {
-                                "type": "contour",
-                                "colorbar": {
-                                    "outlinewidth": 0,
-                                    "ticks": ""
-                                },
-                                "colorscale": [
-                                    [
-                                        0,
-                                        "#0d0887"
-                                    ],
-                                    [
-                                        0.1111111111111111,
-                                        "#46039f"
-                                    ],
-                                    [
-                                        0.2222222222222222,
-                                        "#7201a8"
-                                    ],
-                                    [
-                                        0.3333333333333333,
-                                        "#9c179e"
-                                    ],
-                                    [
-                                        0.4444444444444444,
-                                        "#bd3786"
-                                    ],
-                                    [
-                                        0.5555555555555556,
-                                        "#d8576b"
-                                    ],
-                                    [
-                                        0.6666666666666666,
-                                        "#ed7953"
-                                    ],
-                                    [
-                                        0.7777777777777778,
-                                        "#fb9f3a"
-                                    ],
-                                    [
-                                        0.8888888888888888,
-                                        "#fdca26"
-                                    ],
-                                    [
-                                        1,
-                                        "#f0f921"
-                                    ]
-                                ]
-                            }
-                        ],
-                        "surface": [
-                            {
-                                "type": "surface",
-                                "colorbar": {
-                                    "outlinewidth": 0,
-                                    "ticks": ""
-                                },
-                                "colorscale": [
-                                    [
-                                        0,
-                                        "#0d0887"
-                                    ],
-                                    [
-                                        0.1111111111111111,
-                                        "#46039f"
-                                    ],
-                                    [
-                                        0.2222222222222222,
-                                        "#7201a8"
-                                    ],
-                                    [
-                                        0.3333333333333333,
-                                        "#9c179e"
-                                    ],
-                                    [
-                                        0.4444444444444444,
-                                        "#bd3786"
-                                    ],
-                                    [
-                                        0.5555555555555556,
-                                        "#d8576b"
-                                    ],
-                                    [
-                                        0.6666666666666666,
-                                        "#ed7953"
-                                    ],
-                                    [
-                                        0.7777777777777778,
-                                        "#fb9f3a"
-                                    ],
-                                    [
-                                        0.8888888888888888,
-                                        "#fdca26"
-                                    ],
-                                    [
-                                        1,
-                                        "#f0f921"
-                                    ]
-                                ]
-                            }
-                        ],
-                        "mesh3d": [
-                            {
-                                "type": "mesh3d",
-                                "colorbar": {
-                                    "outlinewidth": 0,
-                                    "ticks": ""
-                                }
-                            }
-                        ],
-                        "scatter": [
-                            {
-                                "fillpattern": {
-                                    "fillmode": "overlay",
-                                    "size": 10,
-                                    "solidity": 0.2
-                                },
-                                "type": "scatter"
-                            }
-                        ],
-                        "parcoords": [
-                            {
-                                "type": "parcoords",
-                                "line": {
-                                    "colorbar": {
-                                        "outlinewidth": 0,
-                                        "ticks": ""
-                                    }
-                                }
-                            }
-                        ],
-                        "scatterpolargl": [
-                            {
-                                "type": "scatterpolargl",
-                                "marker": {
-                                    "colorbar": {
-                                        "outlinewidth": 0,
-                                        "ticks": ""
-                                    }
-                                }
-                            }
-                        ],
-                        "bar": [
-                            {
-                                "error_x": {
-                                    "color": "#2a3f5f"
-                                },
-                                "error_y": {
-                                    "color": "#2a3f5f"
-                                },
-                                "marker": {
-                                    "line": {
-                                        "color": "#E5ECF6",
-                                        "width": 0.5
-                                    },
-                                    "pattern": {
-                                        "fillmode": "overlay",
-                                        "size": 10,
-                                        "solidity": 0.2
-                                    }
-                                },
-                                "type": "bar"
-                            }
-                        ],
-                        "scattergeo": [
-                            {
-                                "type": "scattergeo",
-                                "marker": {
-                                    "colorbar": {
-                                        "outlinewidth": 0,
-                                        "ticks": ""
-                                    }
-                                }
-                            }
-                        ],
-                        "scatterpolar": [
-                            {
-                                "type": "scatterpolar",
-                                "marker": {
-                                    "colorbar": {
-                                        "outlinewidth": 0,
-                                        "ticks": ""
-                                    }
-                                }
-                            }
-                        ],
-                        "histogram": [
-                            {
-                                "marker": {
-                                    "pattern": {
-                                        "fillmode": "overlay",
-                                        "size": 10,
-                                        "solidity": 0.2
-                                    }
-                                },
-                                "type": "histogram"
-                            }
-                        ],
-                        "scattergl": [
-                            {
-                                "type": "scattergl",
-                                "marker": {
-                                    "colorbar": {
-                                        "outlinewidth": 0,
-                                        "ticks": ""
-                                    }
-                                }
-                            }
-                        ],
-                        "scatter3d": [
-                            {
-                                "type": "scatter3d",
-                                "line": {
-                                    "colorbar": {
-                                        "outlinewidth": 0,
-                                        "ticks": ""
-                                    }
-                                },
-                                "marker": {
-                                    "colorbar": {
-                                        "outlinewidth": 0,
-                                        "ticks": ""
-                                    }
-                                }
-                            }
-                        ],
-                        "scattermapbox": [
-                            {
-                                "type": "scattermapbox",
-                                "marker": {
-                                    "colorbar": {
-                                        "outlinewidth": 0,
-                                        "ticks": ""
-                                    }
-                                }
-                            }
-                        ],
-                        "scatterternary": [
-                            {
-                                "type": "scatterternary",
-                                "marker": {
-                                    "colorbar": {
-                                        "outlinewidth": 0,
-                                        "ticks": ""
-                                    }
-                                }
-                            }
-                        ],
-                        "scattercarpet": [
-                            {
-                                "type": "scattercarpet",
-                                "marker": {
-                                    "colorbar": {
-                                        "outlinewidth": 0,
-                                        "ticks": ""
-                                    }
-                                }
-                            }
-                        ],
-                        "carpet": [
-                            {
-                                "aaxis": {
-                                    "endlinecolor": "#2a3f5f",
-                                    "gridcolor": "white",
-                                    "linecolor": "white",
-                                    "minorgridcolor": "white",
-                                    "startlinecolor": "#2a3f5f"
-                                },
-                                "baxis": {
-                                    "endlinecolor": "#2a3f5f",
-                                    "gridcolor": "white",
-                                    "linecolor": "white",
-                                    "minorgridcolor": "white",
-                                    "startlinecolor": "#2a3f5f"
-                                },
-                                "type": "carpet"
-                            }
-                        ],
-                        "table": [
-                            {
-                                "cells": {
-                                    "fill": {
-                                        "color": "#EBF0F8"
-                                    },
-                                    "line": {
-                                        "color": "white"
-                                    }
-                                },
-                                "header": {
-                                    "fill": {
-                                        "color": "#C8D4E3"
-                                    },
-                                    "line": {
-                                        "color": "white"
-                                    }
-                                },
-                                "type": "table"
-                            }
-                        ],
-                        "barpolar": [
-                            {
-                                "marker": {
-                                    "line": {
-                                        "color": "#E5ECF6",
-                                        "width": 0.5
-                                    },
-                                    "pattern": {
-                                        "fillmode": "overlay",
-                                        "size": 10,
-                                        "solidity": 0.2
-                                    }
-                                },
-                                "type": "barpolar"
-                            }
-                        ],
-                        "pie": [
-                            {
-                                "automargin": true,
-                                "type": "pie"
-                            }
-                        ]
-                    },
-                    "layout": {
-                        "autotypenumbers": "strict",
-                        "colorway": [
-                            "#636efa",
-                            "#EF553B",
-                            "#00cc96",
-                            "#ab63fa",
-                            "#FFA15A",
-                            "#19d3f3",
-                            "#FF6692",
-                            "#B6E880",
-                            "#FF97FF",
-                            "#FECB52"
-                        ],
-                        "font": {
-                            "color": "#2a3f5f"
-                        },
-                        "hovermode": "closest",
-                        "hoverlabel": {
-                            "align": "left"
-                        },
-                        "paper_bgcolor": "white",
-                        "plot_bgcolor": "#E5ECF6",
-                        "polar": {
-                            "bgcolor": "#E5ECF6",
-                            "angularaxis": {
-                                "gridcolor": "white",
-                                "linecolor": "white",
-                                "ticks": ""
-                            },
-                            "radialaxis": {
-                                "gridcolor": "white",
-                                "linecolor": "white",
-                                "ticks": ""
-                            }
-                        },
-                        "ternary": {
-                            "bgcolor": "#E5ECF6",
-                            "aaxis": {
-                                "gridcolor": "white",
-                                "linecolor": "white",
-                                "ticks": ""
-                            },
-                            "baxis": {
-                                "gridcolor": "white",
-                                "linecolor": "white",
-                                "ticks": ""
-                            },
-                            "caxis": {
-                                "gridcolor": "white",
-                                "linecolor": "white",
-                                "ticks": ""
-                            }
-                        },
-                        "coloraxis": {
-                            "colorbar": {
-                                "outlinewidth": 0,
-                                "ticks": ""
-                            }
-                        },
-                        "colorscale": {
-                            "sequential": [
-                                [
-                                    0,
-                                    "#0d0887"
-                                ],
-                                [
-                                    0.1111111111111111,
-                                    "#46039f"
-                                ],
-                                [
-                                    0.2222222222222222,
-                                    "#7201a8"
-                                ],
-                                [
-                                    0.3333333333333333,
-                                    "#9c179e"
-                                ],
-                                [
-                                    0.4444444444444444,
-                                    "#bd3786"
-                                ],
-                                [
-                                    0.5555555555555556,
-                                    "#d8576b"
-                                ],
-                                [
-                                    0.6666666666666666,
-                                    "#ed7953"
-                                ],
-                                [
-                                    0.7777777777777778,
-                                    "#fb9f3a"
-                                ],
-                                [
-                                    0.8888888888888888,
-                                    "#fdca26"
-                                ],
-                                [
-                                    1,
-                                    "#f0f921"
-                                ]
-                            ],
-                            "sequentialminus": [
-                                [
-                                    0,
-                                    "#0d0887"
-                                ],
-                                [
-                                    0.1111111111111111,
-                                    "#46039f"
-                                ],
-                                [
-                                    0.2222222222222222,
-                                    "#7201a8"
-                                ],
-                                [
-                                    0.3333333333333333,
-                                    "#9c179e"
-                                ],
-                                [
-                                    0.4444444444444444,
-                                    "#bd3786"
-                                ],
-                                [
-                                    0.5555555555555556,
-                                    "#d8576b"
-                                ],
-                                [
-                                    0.6666666666666666,
-                                    "#ed7953"
-                                ],
-                                [
-                                    0.7777777777777778,
-                                    "#fb9f3a"
-                                ],
-                                [
-                                    0.8888888888888888,
-                                    "#fdca26"
-                                ],
-                                [
-                                    1,
-                                    "#f0f921"
-                                ]
-                            ],
-                            "diverging": [
-                                [
-                                    0,
-                                    "#8e0152"
-                                ],
-                                [
-                                    0.1,
-                                    "#c51b7d"
-                                ],
-                                [
-                                    0.2,
-                                    "#de77ae"
-                                ],
-                                [
-                                    0.3,
-                                    "#f1b6da"
-                                ],
-                                [
-                                    0.4,
-                                    "#fde0ef"
-                                ],
-                                [
-                                    0.5,
-                                    "#f7f7f7"
-                                ],
-                                [
-                                    0.6,
-                                    "#e6f5d0"
-                                ],
-                                [
-                                    0.7,
-                                    "#b8e186"
-                                ],
-                                [
-                                    0.8,
-                                    "#7fbc41"
-                                ],
-                                [
-                                    0.9,
-                                    "#4d9221"
-                                ],
-                                [
-                                    1,
-                                    "#276419"
-                                ]
-                            ]
-                        },
-                        "xaxis": {
-                            "gridcolor": "white",
-                            "linecolor": "white",
-                            "ticks": "",
-                            "title": {
-                                "standoff": 15
-                            },
-                            "zerolinecolor": "white",
-                            "automargin": true,
-                            "zerolinewidth": 2
-                        },
-                        "yaxis": {
-                            "gridcolor": "white",
-                            "linecolor": "white",
-                            "ticks": "",
-                            "title": {
-                                "standoff": 15
-                            },
-                            "zerolinecolor": "white",
-                            "automargin": true,
-                            "zerolinewidth": 2
-                        },
-                        "scene": {
-                            "xaxis": {
-                                "backgroundcolor": "#E5ECF6",
-                                "gridcolor": "white",
-                                "linecolor": "white",
-                                "showbackground": true,
-                                "ticks": "",
-                                "zerolinecolor": "white",
-                                "gridwidth": 2
-                            },
-                            "yaxis": {
-                                "backgroundcolor": "#E5ECF6",
-                                "gridcolor": "white",
-                                "linecolor": "white",
-                                "showbackground": true,
-                                "ticks": "",
-                                "zerolinecolor": "white",
-                                "gridwidth": 2
-                            },
-                            "zaxis": {
-                                "backgroundcolor": "#E5ECF6",
-                                "gridcolor": "white",
-                                "linecolor": "white",
-                                "showbackground": true,
-                                "ticks": "",
-                                "zerolinecolor": "white",
-                                "gridwidth": 2
-                            }
-                        },
-                        "shapedefaults": {
-                            "line": {
-                                "color": "#2a3f5f"
-                            }
-                        },
-                        "annotationdefaults": {
-                            "arrowcolor": "#2a3f5f",
-                            "arrowhead": 0,
-                            "arrowwidth": 1
-                        },
-                        "geo": {
-                            "bgcolor": "white",
-                            "landcolor": "#E5ECF6",
-                            "subunitcolor": "white",
-                            "showland": true,
-                            "showlakes": true,
-                            "lakecolor": "white"
-                        },
-                        "title": {
-                            "x": 0.05
-                        },
-                        "mapbox": {
-                            "style": "light"
-                        }
-                    }
-                },
-                "xaxis": {
-                    "anchor": "y",
-                    "domain": [
-                        0,
-                        1
-                    ],
-                    "title": {
-                        "text": "Aircraft Type",
-                        "font": {
-                            "size": 14
-                        }
-                    },
-                    "type": "category",
-                    "range": [
-                        -0.5,
-                        6.5
-                    ],
-                    "autorange": true
-                },
-                "yaxis": {
-                    "anchor": "x",
-                    "domain": [
-                        0,
-                        1
-                    ],
-                    "title": {
-                        "text": "Number of Reports",
-                        "font": {
-                            "size": 14
-                        }
-                    },
-                    "type": "linear",
-                    "range": [
-                        0,
-                        1.0526315789473684
-                    ],
-                    "autorange": true
-                },
-                "legend": {
-                    "tracegroupgap": 0,
-                    "font": {
-                        "size": 12
-                    }
-                },
-                "title": {
-                    "text": "Types of Aircraft Used the Most",
-                    "font": {
-                        "size": 16
-                    }
-                },
-                "barmode": "relative",
-                "margin": {
-                    "l": 50,
-                    "r": 50,
-                    "t": 50,
-                    "b": 50
-                },
-                "width": 500,
-                "height": 400
-            }
-        },
-        "insight": "The graph shows the number of reports for different types of aircraft. Each aircraft type has the same number of reports, indicating that they are used equally. There is no variation in the data, suggesting uniform usage across these aircraft types."
+        "id_metric": "673d1e522106405cdd49e219"
     }
 ]
