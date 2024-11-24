@@ -81,6 +81,7 @@ export default function Menu() {
             }
         }
         setOpen(false)
+        setShowSignOutAlert(false)
     }
 
     return (

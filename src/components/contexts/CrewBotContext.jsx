@@ -18,7 +18,7 @@ const CrewBotContextProvider = ({children}) => {
     const initChat = async (message) => {
         try {
             setCrewbotTyping(true)
-            const response = await CrewBotService.initChat(message)
+            const response = await CrewBotService.initChat(user.id_user, message)
             if (response) {
                 return response
             } 
@@ -32,7 +32,7 @@ const CrewBotContextProvider = ({children}) => {
     const handleChat = async (message) => {
         try {
             setCrewbotTyping(true)
-            const response = await CrewBotService.handleChat(message)
+            const response = await CrewBotService.handleChat(user.id_user, message)
             if (response) {
                 return response
             } 
@@ -70,9 +70,7 @@ const CrewBotContextProvider = ({children}) => {
         try {
             const response = await CrewBotService.deleteChat(user.id_user, id_chat)
             if (response) {
-                if (response.status === 'success'){
-                    getAllChatsByUserId()              
-                }
+                return response
             } 
         } catch {
             setNotificationInformation({"status": "failed", "title": "Oops! Something went wrong", "message": "Please try again later"})

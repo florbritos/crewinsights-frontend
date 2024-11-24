@@ -1,13 +1,13 @@
-import { LOCALHOSTURL } from "../constants"
+import { ACTIVEURL } from "../constants"
+import * as TokenService from "./token_service"
 
 async function login(login_info) {
-    return fetch(`${LOCALHOSTURL}/api/account/session`, {
+    return fetch(`${ACTIVEURL}/api/account/session`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(login_info),
-        //credentials: "include"
     })
     .then(function(response){
         if (response){
@@ -23,13 +23,15 @@ async function login(login_info) {
 }
 
 async function logout(id_user) {
-    return fetch(`${LOCALHOSTURL}/api/account/session`, {
+    return fetch(`${ACTIVEURL}/api/account/session`, {
         method: 'DELETE',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': await TokenService.getToken(),
+            'CrewInsights-User-ID' : id_user,
         },
         body: JSON.stringify({id_user: id_user}),
-        //credentials: "include"
+        credentials: "include"
     })
     .then(function(response){
         if (response){

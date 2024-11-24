@@ -21,17 +21,26 @@ import FlightReportContextProvider from './components/contexts/FlightReportConte
 import NavigationContextProvider, { useNavigationContext } from './components/contexts/NavigationContext';
 import DashboardContextProvider from './components/contexts/DashboardContext';
 import PageNotEntitlements from './pages/PageNotEntitlements';
+import SearchBotContextProvider from './components/contexts/SearchBotContext';
 
 const ProtectedRoute = ({ component: Component, roles }) => {
   const { isAuthenticated } = useAuthContext()
   const [ token, setToken ] = useState(null)
   const [ activeUser, setActiveUser ] = useState({})
-  const { handleNavigation, setFlagChangesToSave } = useNavigationContext();
+  // const { handleNavigation, setFlagChangesToSave } = useNavigationContext();
+
+  // // useEffect(()=>{
+  // //   const [ token, activeUser ] = isAuthenticated()
+  // //   setToken(token)
+  // //   setActiveUser(activeUser)
+  // // }, [])
 
   useEffect(()=>{
-    const [ token, activeUser ] = isAuthenticated()
-    setToken(token)
-    setActiveUser(activeUser)
+    (async () => {
+      const [ token, activeUser ] = await isAuthenticated();
+      setToken(token)
+      setActiveUser(activeUser)
+    })();
   }, [])
 
   if (token === null){
@@ -58,26 +67,28 @@ function App() {
         <LoaderModalContextProvider>
           <AuthContextProvider>
             <DashboardContextProvider>
-              <CrewBotContextProvider>
-                <FlightReportContextProvider>
-                  <LoaderModal/>
-                  <Notification/>
-                  <BrowserRouter>
-                    <NavigationContextProvider>
-                      <Routes>
-                        <Route path='/login' element={<Login/>}/>
-                        <Route path='/' element={<Home/>}/>
-                        <Route path="/dashboard" element= {<><Menu/><ProtectedRoute component={Dashboard} roles={['admin']} /></>}/>
-                        <Route path="/crewhome" element= {<><Menu/><ProtectedRoute component={CrewHome} roles={['crew']} /></>}/>
-                        <Route path="/crewbot" element= {<><Menu/><ProtectedRoute component={Crewbot} roles={['crew']} /></>}/>
-                        <Route path="/flight-report" element= {<><Menu/><ProtectedRoute component={FlightReport} roles={['crew']} /></>}/>
-                        <Route path='/unauthorized' element={<PageNotEntitlements/>}/>
-                        <Route path="*" element={<PageNotFound />} />
-                      </Routes>
-                    </NavigationContextProvider>
-                  </BrowserRouter>
-                </FlightReportContextProvider>
-              </CrewBotContextProvider>
+              <SearchBotContextProvider>
+                <CrewBotContextProvider>
+                  <FlightReportContextProvider>
+                    <LoaderModal/>
+                    <Notification/>
+                    <BrowserRouter>
+                      <NavigationContextProvider>
+                        <Routes>
+                          <Route path='/login' element={<Login/>}/>
+                          <Route path='/' element={<Home/>}/>
+                          <Route path="/dashboard" element= {<><Menu/><ProtectedRoute component={Dashboard} roles={['admin']} /></>}/>
+                          <Route path="/crewhome" element= {<><Menu/><ProtectedRoute component={CrewHome} roles={['crew']} /></>}/>
+                          <Route path="/crewbot" element= {<><Menu/><ProtectedRoute component={Crewbot} roles={['crew']} /></>}/>
+                          <Route path="/flight-report" element= {<><Menu/><ProtectedRoute component={FlightReport} roles={['crew']} /></>}/>
+                          <Route path='/unauthorized' element={<PageNotEntitlements/>}/>
+                          <Route path="*" element={<PageNotFound />} />
+                        </Routes>
+                      </NavigationContextProvider>
+                    </BrowserRouter>
+                  </FlightReportContextProvider>
+                </CrewBotContextProvider>
+              </SearchBotContextProvider>
             </DashboardContextProvider>
           </AuthContextProvider>
         </LoaderModalContextProvider>

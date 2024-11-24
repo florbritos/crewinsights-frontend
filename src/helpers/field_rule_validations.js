@@ -143,29 +143,36 @@ export function validateObjectFields(obj){
     return list_errors
 }
 
-export const report = [
-    {
-        "graph_data": null,
-        "id_metric": "123456"
-    },
-    {
+export const response = {
         "graph_data": {
             "data": [
                 {
+                    "alignmentgroup": "True",
+                    "hovertemplate": "Cause=%{x}<br>Number of Incidents=%{y}<extra></extra>",
+                    "legendgroup": "",
+                    "marker": {
+                        "color": "#636efa",
+                        "pattern": {
+                            "shape": ""
+                        }
+                    },
+                    "name": "",
+                    "offsetgroup": "",
+                    "orientation": "v",
+                    "showlegend": false,
+                    "textposition": "auto",
                     "x": [
-                        "Problemas médicos con los pasajeros",
-                        "Humo de un dispositivo de vapeo",
-                        "Cambiar de ruta debido a una tormenta eléctrica",
-                        "Problemas técnicos con una puerta de emergencia",
-                        "Demora en la carga de equipaje"
+                        "Medical",
+                        "Technical",
+                        "Other"
                     ],
+                    "xaxis": "x",
                     "y": [
                         1,
-                        1,
-                        1,
-                        1,
+                        0,
                         1
                     ],
+                    "yaxis": "y",
                     "type": "bar"
                 }
             ],
@@ -986,40 +993,45 @@ export const report = [
                         }
                     }
                 },
+                "xaxis": {
+                    "anchor": "y",
+                    "domain": [
+                        0,
+                        1
+                    ],
+                    "title": {
+                        "text": "Cause",
+                        "font": {
+                            "size": 14
+                        }
+                    }
+                },
+                "yaxis": {
+                    "anchor": "x",
+                    "domain": [
+                        0,
+                        1
+                    ],
+                    "title": {
+                        "text": "Number of Incidents",
+                        "font": {
+                            "size": 14
+                        }
+                    }
+                },
+                "legend": {
+                    "tracegroupgap": 0,
+                    "font": {
+                        "size": 12
+                    }
+                },
                 "title": {
-                    "text": "Causas más frecuentes en los retrasos de los vuelos",
+                    "text": "Emergency Landings by Cause",
                     "font": {
                         "size": 16
                     }
                 },
-                "xaxis": {
-                    "title": {
-                        "text": "Causas",
-                        "font": {
-                            "size": 14
-                        }
-                    },
-                    "type": "category",
-                    "range": [
-                        -0.5,
-                        4.5
-                    ],
-                    "autorange": true
-                },
-                "yaxis": {
-                    "title": {
-                        "text": "Cantidad de veces informadas",
-                        "font": {
-                            "size": 14
-                        }
-                    },
-                    "type": "linear",
-                    "range": [
-                        0,
-                        1.0526315789473684
-                    ],
-                    "autorange": true
-                },
+                "barmode": "relative",
                 "margin": {
                     "l": 50,
                     "r": 50,
@@ -1027,27 +1039,38 @@ export const report = [
                     "b": 50
                 },
                 "width": 500,
-                "height": 400,
-                "legend": {
-                    "font": {
-                        "size": 12
-                    }
-                }
+                "height": 400
             }
         },
-        "id_metric": "6738a0594e520f178befe0cd"
-    },
+        "id_metric": "6742a4f952f270306f5e62d7",
+        "analysis": `Based on the flight reports, the following flights experienced delays:
+
+1. Flight QF12: Departed from SYD International Airport to LAX International Airport. The delay was due to heavy congestion at LAX, causing a 30-minute delay in landing clearance.
+
+2. Flight LH456: Departed from FRA International Airport to ORD International Airport. The actual departure was delayed by 30 minutes due to undisclosed reasons.
+
+3. Flight BA787: Departed from London Heathrow International Airport (LHR) to Johannesburg International Airport (JNB). The departure was delayed to 18:45 (from 18:00) due to a minor technical issue detected during pre-flight checks.
+
+4. Flight AA101: Departed from JFK International Airport to unknown destination. The flight was delayed to 09:30 (from 08:00) due to severe weather conditions at the departure airport, such as heavy snowfall and strong winds. There was also a delay due to a security screening incident involving a suspicious item. 
+
+Please note that destinations which have on more than one occasion been the cause of flight delays based on the reports are LAX International Airport and JFK International Airport.`
+    }
+
+export const report = [
     {
         "graph_data": {
             "data": [
                 {
+                    "name": "Number of Delays",
                     "x": [
-                        "Aeropuerto de Lahore (LHE)",
-                        "Chicago",
-                        "Madrid",
-                        "No se especifica, pero perteneciente a la puerta de salida de emergencia"
+                        "LAX",
+                        "ORD",
+                        "JFK",
+                        "LAX",
+                        "JNB"
                     ],
                     "y": [
+                        1,
                         1,
                         1,
                         1,
@@ -1874,14 +1897,14 @@ export const report = [
                     }
                 },
                 "title": {
-                    "text": "Destinos que sufren frecuentemente retrasos",
+                    "text": "Number of Delays per Destination",
                     "font": {
                         "size": 16
                     }
                 },
                 "xaxis": {
                     "title": {
-                        "text": "Destinos",
+                        "text": "Destination",
                         "font": {
                             "size": 14
                         }
@@ -1895,7 +1918,7 @@ export const report = [
                 },
                 "yaxis": {
                     "title": {
-                        "text": "Cantidad de Retrasos",
+                        "text": "Number of Delays",
                         "font": {
                             "size": 14
                         }
@@ -1903,10 +1926,11 @@ export const report = [
                     "type": "linear",
                     "range": [
                         0,
-                        1.0526315789473684
+                        2.1052631578947367
                     ],
                     "autorange": true
                 },
+                "barmode": "group",
                 "margin": {
                     "l": 50,
                     "r": 50,
@@ -1922,6 +1946,7 @@ export const report = [
                 }
             }
         },
-        "id_metric": "673d1e522106405cdd49e219"
+        "analysis": "From the reports, the following data for delayed flights can be gathered:\n\n1. Flight QF12 - Destination: LAX International Airport - Number of delays: 1\n2. Flight LH456 - Destination: ORD International Airport - Number of delays: 1\n3. Flight EK222 - Destination: JFK International Airport - Number of delays: 1\n4. Flight AA101 - Destination: LAX International Airport - Number of delays: 1\n5. Flight BA787 - Destination: Johannesburg International Airport (JNB) - Number of delays: 1\n\nUnfortunately, without the ability to generate graphics, a chart is not available. However, the above listed flights and destinations had 1 instance of delay each according to the reports provided.",
+        "id_metric": "6738a0594e520f178befe0cd"
     }
 ]

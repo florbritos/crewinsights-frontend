@@ -4,6 +4,7 @@ import { useAuthContext } from '../components/contexts/AuthContext';
 import { useNotificationContext } from '../components/contexts/NotificationContext';
 import { useLoaderModalContext } from '../components/contexts/LoaderModalContext';
 import * as Storage from "../services/storage_service";
+import * as TokenService from '../services/token_service'
 import { validateField, validateObjectFields } from '../helpers/field_rule_validations'; 
 import InputErrorMessage from '../components/InputErrorMessage';
 import {
@@ -26,11 +27,24 @@ const Login = () => {
     password: ""
   })
 
-  const [token, activeUser] = isAuthenticated()
-  if(token){
-    navigate('/')
-    return null
-  }
+
+
+  useEffect(()=> {
+    (async () => {
+      const [ token, activeUser ] = await isAuthenticated();
+      if(token){
+        navigate('/')
+        return null
+      }
+    })();
+
+    // const [ token ] = isAuthenticated()
+    // if(token){
+    //   navigate('/')
+    //   return null
+    // }
+  }, [])
+  
 
   const handleOnChange = (e) => {
     const field = e.target.name
@@ -47,7 +61,8 @@ const Login = () => {
 
   const setUserSession = (user_info) => {
     setUser(user_info)
-    Storage.saveToken('token', user_info.token, 7)
+    //Storage.saveToken('token', user_info.token, 7)
+    TokenService.saveToken(user_info.token)
     delete user_info.token
     Storage.save('user', user_info)
   }

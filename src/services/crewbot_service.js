@@ -1,10 +1,13 @@
-import { LOCALHOSTURL } from "../constants"
+import { ACTIVEURL } from "../constants"
+import * as TokenService from "./token_service"
 
-async function initChat(message) {
-    return fetch(`${LOCALHOSTURL}/api/crewbot/chat/init`, {
+async function initChat(id_user, message) {
+    return fetch(`${ACTIVEURL}/api/crewbot/chat/init`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': await TokenService.getToken(),
+            'CrewInsights-User-ID' : id_user,
         },
         body: JSON.stringify(message),
         credentials: "include"
@@ -19,11 +22,13 @@ async function initChat(message) {
     })
 }
 
-async function handleChat(message) {
-    return fetch(`${LOCALHOSTURL}/api/crewbot/chat`, {
+async function handleChat(id_user, message) {
+    return fetch(`${ACTIVEURL}/api/crewbot/chat`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': await TokenService.getToken(),
+            'CrewInsights-User-ID' : id_user,
         },
         body: JSON.stringify(message),
         credentials: "include"
@@ -39,10 +44,12 @@ async function handleChat(message) {
 }
 
 async function getAllChatsByUserId(id_user) {
-    return fetch(`${LOCALHOSTURL}/api/crewbot/user/${id_user}`, {
+    return fetch(`${ACTIVEURL}/api/crewbot/user/${id_user}`, {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': await TokenService.getToken(),
+            'CrewInsights-User-ID' : id_user,
         },
         credentials: "include"
     })
@@ -57,10 +64,12 @@ async function getAllChatsByUserId(id_user) {
 }
 
 async function deleteChat(id_user, id_chat) {
-    return fetch(`${LOCALHOSTURL}/api/crewbot/user/${id_user}/chat/${id_chat}`, {
+    return fetch(`${ACTIVEURL}/api/crewbot/user/${id_user}/chat/${id_chat}`, {
         method: 'DELETE',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': await TokenService.getToken(),
+            'CrewInsights-User-ID' : id_user,
         },
         credentials: "include"
     })

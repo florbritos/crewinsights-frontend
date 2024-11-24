@@ -1,7 +1,7 @@
 import { useCrewBotContext } from "../../components/contexts/CrewBotContext"
 import AskCrewBot from "../../components/crewbot/AskCrewBot"
 import Conversation from "../../components/crewbot/Conversation"
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
     Dialog,
     DialogBackdrop,
@@ -15,6 +15,7 @@ import {
 } from '@heroicons/react/24/outline'
 import LoaderXS from "../../components/LoaderXS"
 import PopUpModal from "../../components/PopUpModal"
+import { Link } from "react-router-dom"
 
 const navigation = [
     { name: 'New chat', icon: PlusIcon, current: false },
@@ -25,23 +26,25 @@ function classNames(...classes) {
 }
 
 const Crewbot = () => {
-    const { setConversation, chats, setChats, getAllChatsByUserId, loader, setActiveChatId, activeChatId, deleteChat, conversation } = useCrewBotContext()
+    const { setConversation, chats, setChats, getAllChatsByUserId, loader, setActiveChatId, activeChatId, deleteChat } = useCrewBotContext()
     const [ sidebarOpen, setSidebarOpen ] = useState(false)
     const [ chatIdToDelete, setChatIdToDelete ] = useState(false)
     const [ showDeleteAlert, setShowDeleteAlert ] = useState(false)
-    
+    const hasFetched = useRef(false)
 
     useEffect(()=>{
-        setNewChat()
-        getAllChatsByUserId()       
+        if (!hasFetched.current) {
+            hasFetched.current = true;
+            getAllChatsByUserId()
+            setNewChat()
+        }
     }, [])
 
     useEffect(()=>{
         manageCurrentChatStatus()
-    }, [activeChatId, conversation])
+    }, [activeChatId])
 
     const manageCurrentChatStatus = async () => {
-        await getAllChatsByUserId()
         setChats(prevChats => 
             prevChats.map(c=> {
                 if (c.id_chat === activeChatId){
@@ -86,8 +89,12 @@ const Crewbot = () => {
 
     const eraseChat = async () => {
         setShowDeleteAlert(false)
-        await deleteChat(chatIdToDelete)
-        setNewChat()
+        const response = await deleteChat(chatIdToDelete)
+        if (response.status === 'success'){
+            console.log(response)
+            activeChatId && activeChatId === chatIdToDelete && setNewChat()
+            setChats(prevChats => prevChats.filter(c=> c.id_chat !== activeChatId))
+        }
     }
 
     return (
@@ -114,11 +121,12 @@ const Crewbot = () => {
                         </TransitionChild>z
                         <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-4">
                             <div className="flex h-16 shrink-0 items-center">
-                                <img
-                                    alt="Your Company"
-                                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                                    className="h-8 w-auto"
-                                />
+                                <Link 
+                                    to={"/"} 
+                                    className="-m-1.5 p-1.5 font1 text-1xl font-bold text-blueCI-1"
+                                >
+                                    Crew<span className="text-orangeCI-1">Insights</span>
+                                </Link>
                             </div>
                             <nav className="flex flex-1 flex-col">
                                 <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -185,11 +193,12 @@ const Crewbot = () => {
             <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-72 lg:flex-col">
                 <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
                     <div className="flex h-16 shrink-0 items-center">
-                        <img
-                            alt="Your Company"
-                            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                            className="h-8 w-auto"
-                        />
+                        <Link 
+                            to={"/"} 
+                            className="-m-1.5 p-1.5 font1 text-1xl font-bold text-blueCI-1"
+                        >
+                            Crew<span className="text-orangeCI-1">Insights</span>
+                        </Link>
                     </div>
                     <nav className="flex flex-1 flex-col">
                         <ul role="list" className="flex flex-1 flex-col gap-y-7">

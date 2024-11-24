@@ -2,12 +2,14 @@ import { useContext, createContext, useState } from "react";
 import * as FlightReportService from '../../services/flightReport_service'
 import { useNotificationContext } from "./NotificationContext";
 import { parseISO, format, addDays, isBefore } from 'date-fns';
+import { useAuthContext } from "./AuthContext";
 
 const FlightReportContext = createContext()
 export const useFlightReportContext = () => useContext(FlightReportContext)
 
 const FlightReportContextProvider = ({children}) => {
 
+    const { user } = useAuthContext()
     const { setNotificationInformation } = useNotificationContext()
     const [ reportErrors, setReportErrors ] = useState({})
     const [ report, setReport ] = useState({})
@@ -58,7 +60,7 @@ const FlightReportContextProvider = ({children}) => {
 
     const saveReport = async () => {
         try {
-            const response = await FlightReportService.save(report)
+            const response = await FlightReportService.save(user.id_user, report)
             if (response) {
                 return response
             } 

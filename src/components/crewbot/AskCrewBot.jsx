@@ -1,33 +1,10 @@
 import { useState } from 'react'
-import {
-    FaceFrownIcon,
-    FaceSmileIcon,
-    FireIcon,
-    HandThumbUpIcon,
-    HeartIcon,
-    PaperClipIcon,
-    XMarkIcon,
-} from '@heroicons/react/20/solid'
-import { Label, Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 import InputErrorMessage from '../InputErrorMessage'
 import { useCrewBotContext } from '../contexts/CrewBotContext'
 import { useAuthContext } from '../contexts/AuthContext'
 
-// const moods = [
-//     { name: 'Excited', value: 'excited', icon: FireIcon, iconColor: 'text-white', bgColor: 'bg-red-500' },
-//     { name: 'Loved', value: 'loved', icon: HeartIcon, iconColor: 'text-white', bgColor: 'bg-pink-400' },
-//     { name: 'Happy', value: 'happy', icon: FaceSmileIcon, iconColor: 'text-white', bgColor: 'bg-green-400' },
-//     { name: 'Sad', value: 'sad', icon: FaceFrownIcon, iconColor: 'text-white', bgColor: 'bg-yellow-400' },
-//     { name: 'Thumbsy', value: 'thumbsy', icon: HandThumbUpIcon, iconColor: 'text-white', bgColor: 'bg-blue-500' },
-//     { name: 'I feel nothing', value: null, icon: XMarkIcon, iconColor: 'text-gray-400', bgColor: 'bg-transparent' },
-// ]
-
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-}
-
 const AskCrewBot = () => {
-    const { initChat, setConversation, conversation, handleChat, setActiveChatId, activeChatId } = useCrewBotContext()
+    const { initChat, setConversation, conversation, handleChat, setActiveChatId, activeChatId, setChats, chats } = useCrewBotContext()
     const { user } = useAuthContext()
     const [message, setMessage] = useState("")
     const [messageError, setMessageError] = useState("")
@@ -50,7 +27,6 @@ const AskCrewBot = () => {
             const a = {sender: 'crewbot', message: ''}
             setConversation([...conversation, q])
             setMessage("")
-            //const activeChat = chats.filter(c => c.current === true)
             if (!activeChatId){
                 const res = await initChat({id_user: user.id_user, question: message})
                 if (res){
@@ -58,6 +34,7 @@ const AskCrewBot = () => {
                         a["message"] = res.result.answer
                         setConversation([...conversation, q, a])
                         setActiveChatId(res.result.id_chat)
+                        addToChatList(res.result)
                     }
                 }
             } else {
@@ -66,6 +43,7 @@ const AskCrewBot = () => {
                     if (res.status === 'success'){
                         a["message"] = res.result.answer
                         setConversation([...conversation, q, a])
+                        updateChatList(res.result)
                     }
                 }
             }
@@ -73,6 +51,32 @@ const AskCrewBot = () => {
         } else {
             setMessageError("The message is empty")
         }
+    }
+
+    const addToChatList = (res) => {
+        setChats([...chats, {
+            id_chat: res.id_chat, 
+            id_user: res.id_user, 
+            title: res.title, 
+            current: true, 
+            conversation: [{'question': res.question, 'answer': res.answer}]
+        }]
+        )
+    }
+
+    const updateChatList = (res) => {
+        setChats(prevChats => 
+            prevChats.map(c=> {
+                if (c.id_chat === res.id_chat){
+                    return {
+                        ...c, 
+                        title : res.title, 
+                        conversation: [...c.conversation, { question: res.question, answer: res.answer }]
+                    }
+                }
+                return c
+            })
+        )
     }
 
     return (

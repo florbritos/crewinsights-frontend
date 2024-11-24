@@ -1,7 +1,8 @@
-import { useContext, createContext, useState, useEffect, useCallback } from "react";
+import { useContext, createContext, useState, useEffect, useCallback } from "react"
 import * as AuthService from '../../services/auth_service'
-import { useNotificationContext } from "./NotificationContext";
-import * as Storage from "../../services/storage_service";
+import { useNotificationContext } from "./NotificationContext"
+import * as Storage from "../../services/storage_service"
+import * as TokenService from '../../services/token_service'
 
 const AuthContext = createContext()
 export const useAuthContext = () => useContext(AuthContext)
@@ -11,9 +12,9 @@ const AuthContextProvider = ({children}) => {
     const { setNotificationInformation } = useNotificationContext()
     const [user, setUser] = useState({})
 
-    const isAuthenticated = () => {
+    const isAuthenticated = async () => {
         const activeUser = Storage.get('user')
-        const token = Storage.getToken('token') ?? ""
+        const token = await TokenService.getToken() ?? ''
         token && setUser(activeUser)
         return [token, activeUser]
     }
@@ -35,7 +36,8 @@ const AuthContextProvider = ({children}) => {
             if (response){
                 setUser({})
                 Storage.erase('user')
-                Storage.eraseToken('token')
+                //Storage.eraseToken('token')
+                TokenService.deleteToken()
                 return response
             } 
         } catch {
