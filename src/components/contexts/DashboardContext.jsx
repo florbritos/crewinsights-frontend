@@ -17,15 +17,15 @@ const DashboardContextProvider = ({children}) => {
     const getMetrics = async () => {
 
         try {
-            const response = await DashboardService.getMetrics(user.id_user)
-            // const response = await new Promise((resolve) => {
-            //     setTimeout(() => {
-            //         resolve({
-            //             status: "success",
-            //             result: [res, res]
-            //         })
-            //     }, 5000)
-            // })
+            //const response = await DashboardService.getMetrics(user.id_user)
+            const response = await new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve({
+                        status: "success",
+                        result: [res, res]
+                    })
+                }, 5000)
+            })
 
             if (response) {
                 if (response.status === 'success'){

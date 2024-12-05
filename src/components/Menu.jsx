@@ -50,7 +50,8 @@ function CurrentPage() {
         "crewhome": "Home",
         "crewbot" : "CrewBot",
         "flight-report": "Flight-Report",
-        "dashboard": "Home"
+        "dashboard": "Home",
+        "user-management": "Users"
     }
     const lastPart = currentPath.split('/').filter(Boolean).pop();
 
@@ -73,6 +74,7 @@ export default function Menu() {
     const signOut = async (e) => {
         e.preventDefault()
         setOpen(true)
+        setShowSignOutAlert(false)
         const res= await logOut()
         if(res){
             if (res.status === "success"){
@@ -81,7 +83,6 @@ export default function Menu() {
             }
         }
         setOpen(false)
-        setShowSignOutAlert(false)
     }
 
     return (
@@ -161,28 +162,21 @@ export default function Menu() {
                     <Link 
                         to={"/crewbot"}
                         onClick={e => { e.preventDefault(); handleRouteChange("/crewbot")}}
-                        className={`text-sm font-semibold leading-6 text-gray-900 hover:text-orangeCI-1 ${user.role === "crew" ? "block" : "hidden"}`}
+                        className={`text-sm font-semibold leading-6 text-gray-900 hover:text-orangeCI-1 ${user.role === "Crew" ? "block" : "hidden"}`}
                     >
                         CrewBot
                     </Link>
                     <Link 
                         to={"/flight-report"} 
                         onClick={e => { e.preventDefault(); handleRouteChange("/flight-report")}}
-                        className={`text-sm font-semibold leading-6 text-gray-900 hover:text-orangeCI-1 ${user.role === "crew" ? "block" : "hidden"}`}
+                        className={`text-sm font-semibold leading-6 text-gray-900 hover:text-orangeCI-1 ${user.role === "Crew" ? "block" : "hidden"}`}
                     >
                         Flight Report
                     </Link>
-                    {/* <Link 
-                        to={"/dashboard"} 
-                        onClick={e => { e.preventDefault(); handleRouteChange("/dashboard")}}
-                        className={`text-sm font-semibold leading-6 text-gray-900 hover:text-orangeCI-1 ${user.role === "admin" ? "block" : "hidden"}`}
-                    >
-                        Dashboard
-                    </Link> */}
                     <Link 
                         to={"/user-management"} 
                         onClick={e => { e.preventDefault(); handleRouteChange("/user-management")}}
-                        className={`text-sm font-semibold leading-6 text-gray-900 hover:text-orangeCI-1 ${user.role === "admin" ? "block" : "hidden"}`}
+                        className={`text-sm font-semibold leading-6 text-gray-900 hover:text-orangeCI-1 ${user.role === "Admin" ? "block" : "hidden"}`}
                     >
                         User Management
                     </Link>
@@ -253,28 +247,21 @@ export default function Menu() {
                             <Link
                                 to={"/crewbot"}
                                 onClick={e => { e.preventDefault(); handleRouteChange("/crewbot"); setMobileMenuOpen(false)}}
-                                className={`-mx-3 rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 ${user.role === "crew" ? "block" : "hidden"}`}
+                                className={`-mx-3 rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 ${user.role === "Crew" ? "block" : "hidden"}`}
                             >
                             CrewBot
                             </Link>
                             <Link
                                 to={"/flight-report"}
                                 onClick={e => { e.preventDefault(); handleRouteChange("/flight-report"); setMobileMenuOpen(false)}}
-                                className={`-mx-3 rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 ${user.role === "crew" ? "block" : "hidden"}`}
+                                className={`-mx-3 rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 ${user.role === "Crew" ? "block" : "hidden"}`}
                             >
                             Flight Report
                             </Link>
-                            {/* <Link
-                                to={"/dashboard"}
-                                onClick={e => { e.preventDefault(); handleRouteChange("/dashboard")}}
-                                className={`-mx-3 rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 ${user.role === "admin" ? "block" : "hidden"}`}
-                            >
-                            Dashboard
-                            </Link> */}
                             <Link
                                 to={"/user-management"}
                                 onClick={e => { e.preventDefault(); handleRouteChange("/user-management"); setMobileMenuOpen(false)}}
-                                className={`-mx-3 rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 ${user.role === "admin" ? "block" : "hidden"}`}
+                                className={`-mx-3 rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 ${user.role === "Admin" ? "block" : "hidden"}`}
                             >
                             User Management
                             </Link>

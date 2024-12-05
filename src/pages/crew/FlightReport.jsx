@@ -1,4 +1,3 @@
-import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { useAuthContext } from '../../components/contexts/AuthContext'
 import { useEffect, useState } from 'react'
 import CrewPaxInformation from '../../components/flightReport/CrewPaxInformation'

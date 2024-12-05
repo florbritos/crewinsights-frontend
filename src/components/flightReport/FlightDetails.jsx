@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { useFlightReportContext } from "../contexts/FlightReportContext"
 import InputErrorMessage from "../InputErrorMessage"
+import { currentDateTime } from "../../helpers/field_rule_validations"
 
 // const useDebounce = (value, delay) => {
 //     const [debouncedValue, setDebouncedValue] = useState(value)
@@ -22,13 +23,13 @@ const FlightDetails = ({handleOnChange}) => {
 
     const { reportErrors, report } = useFlightReportContext()
 
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const currentDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+    // const now = new Date();
+    // const year = now.getFullYear();
+    // const month = String(now.getMonth() + 1).padStart(2, '0');
+    // const day = String(now.getDate()).padStart(2, '0');
+    // const hours = String(now.getHours()).padStart(2, '0');
+    // const minutes = String(now.getMinutes()).padStart(2, '0');
+    // const currentDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
 
     // const [ departure_airport, set_departure_airport ] = useState('')
     // const [ arrival_airport, set_arrival_airport ] = useState('')
@@ -202,7 +203,7 @@ const FlightDetails = ({handleOnChange}) => {
                                                 id="schedule_departure_time"
                                                 name="schedule_departure_time"
                                                 type="datetime-local"
-                                                max={currentDateTime}
+                                                max={currentDateTime()}
                                                 value={report.schedule_departure_time}
                                                 onChange={e => handleOnChange(e.target.name, e.target.value)}
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orangeCI-1 sm:text-sm sm:leading-6"
@@ -228,7 +229,7 @@ const FlightDetails = ({handleOnChange}) => {
                                                 name="actual_departure_time"
                                                 type="datetime-local"
                                                 value={report.actual_departure_time}
-                                                max={currentDateTime}
+                                                max={currentDateTime()}
                                                 onChange={e => handleOnChange(e.target.name, e.target.value)}
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orangeCI-1 sm:text-sm sm:leading-6"
                                                 {...(reportErrors.actual_departure_time && {"aria-describedby" : "error-actual_departure_time"})}
@@ -252,7 +253,7 @@ const FlightDetails = ({handleOnChange}) => {
                                                 id="schedule_arrival_time"
                                                 name="schedule_arrival_time"
                                                 type="datetime-local"
-                                                max={currentDateTime}
+                                                max={currentDateTime()}
                                                 value={report.schedule_arrival_time}
                                                 onChange={e => handleOnChange(e.target.name, e.target.value)}
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orangeCI-1 sm:text-sm sm:leading-6"
@@ -277,7 +278,7 @@ const FlightDetails = ({handleOnChange}) => {
                                                 id="actual_arrival_time"
                                                 name="actual_arrival_time"
                                                 type="datetime-local"
-                                                max={currentDateTime}
+                                                max={currentDateTime()}
                                                 value={report.actual_arrival_time}
                                                 onChange={e => handleOnChange(e.target.name, e.target.value)}
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orangeCI-1 sm:text-sm sm:leading-6"

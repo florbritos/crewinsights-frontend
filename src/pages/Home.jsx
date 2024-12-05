@@ -12,25 +12,13 @@ const Home = () => {
             const [ token, activeUser ] = await isAuthenticated();
             if (!token) {
                 navigate('/login')
-            } else if (activeUser?.role === 'admin') {
+            } else if (activeUser?.role === 'Admin') {
                 navigate('/dashboard')
-            } else if (activeUser?.role === 'crew') {
+            } else if (activeUser?.role === 'Crew') {
                 navigate('/crewhome')
             }
         })();
     }, []);
-
-    // useEffect(() => {   
-    //     const [ token, activeUser ] = isAuthenticated()
-
-    //     if (!token) {
-    //         navigate('/login')
-    //     } else if (activeUser?.role === 'admin') {
-    //         navigate('/dashboard')
-    //     } else if (activeUser?.role === 'crew') {
-    //         navigate('/crewhome')
-    //     }
-    // }, []);
 
     return null
 }

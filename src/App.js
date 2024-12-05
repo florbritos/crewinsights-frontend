@@ -22,6 +22,8 @@ import NavigationContextProvider, { useNavigationContext } from './components/co
 import DashboardContextProvider from './components/contexts/DashboardContext';
 import PageNotEntitlements from './pages/PageNotEntitlements';
 import SearchBotContextProvider from './components/contexts/SearchBotContext';
+import UserManagementContextProvider from './components/contexts/UserManagementContext';
+import UserManagement from './pages/admin/UserManagement';
 
 const ProtectedRoute = ({ component: Component, roles }) => {
   const { isAuthenticated } = useAuthContext()
@@ -66,30 +68,33 @@ function App() {
       <NotificationContextProvider>
         <LoaderModalContextProvider>
           <AuthContextProvider>
-            <DashboardContextProvider>
-              <SearchBotContextProvider>
-                <CrewBotContextProvider>
-                  <FlightReportContextProvider>
-                    <LoaderModal/>
-                    <Notification/>
-                    <BrowserRouter>
-                      <NavigationContextProvider>
-                        <Routes>
-                          <Route path='/login' element={<Login/>}/>
-                          <Route path='/' element={<Home/>}/>
-                          <Route path="/dashboard" element= {<><Menu/><ProtectedRoute component={Dashboard} roles={['admin']} /></>}/>
-                          <Route path="/crewhome" element= {<><Menu/><ProtectedRoute component={CrewHome} roles={['crew']} /></>}/>
-                          <Route path="/crewbot" element= {<><Menu/><ProtectedRoute component={Crewbot} roles={['crew']} /></>}/>
-                          <Route path="/flight-report" element= {<><Menu/><ProtectedRoute component={FlightReport} roles={['crew']} /></>}/>
-                          <Route path='/unauthorized' element={<PageNotEntitlements/>}/>
-                          <Route path="*" element={<PageNotFound />} />
-                        </Routes>
-                      </NavigationContextProvider>
-                    </BrowserRouter>
-                  </FlightReportContextProvider>
-                </CrewBotContextProvider>
-              </SearchBotContextProvider>
-            </DashboardContextProvider>
+            <UserManagementContextProvider>
+              <DashboardContextProvider>
+                <SearchBotContextProvider>
+                  <CrewBotContextProvider>
+                    <FlightReportContextProvider>
+                      <LoaderModal/>
+                      <Notification/>
+                      <BrowserRouter>
+                        <NavigationContextProvider>
+                          <Routes>
+                            <Route path='/login' element={<Login/>}/>
+                            <Route path='/' element={<Home/>}/>
+                            <Route path="/dashboard" element= {<><Menu/><ProtectedRoute component={Dashboard} roles={['Admin']} /></>}/>
+                            <Route path="/user-management" element= {<><Menu/><ProtectedRoute component={UserManagement} roles={['Admin']} /></>}/>
+                            <Route path="/crewhome" element= {<><Menu/><ProtectedRoute component={CrewHome} roles={['Crew']} /></>}/>
+                            <Route path="/crewbot" element= {<><Menu/><ProtectedRoute component={Crewbot} roles={['Crew']} /></>}/>
+                            <Route path="/flight-report" element= {<><Menu/><ProtectedRoute component={FlightReport} roles={['Crew']} /></>}/>
+                            <Route path='/unauthorized' element={<PageNotEntitlements/>}/>
+                            <Route path="*" element={<PageNotFound />} />
+                          </Routes>
+                        </NavigationContextProvider>
+                      </BrowserRouter>
+                    </FlightReportContextProvider>
+                  </CrewBotContextProvider>
+                </SearchBotContextProvider>
+              </DashboardContextProvider>
+            </UserManagementContextProvider>
           </AuthContextProvider>
         </LoaderModalContextProvider>
       </NotificationContextProvider>

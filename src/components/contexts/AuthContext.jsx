@@ -36,7 +36,6 @@ const AuthContextProvider = ({children}) => {
             if (response){
                 setUser({})
                 Storage.erase('user')
-                //Storage.eraseToken('token')
                 TokenService.deleteToken()
                 return response
             } 
