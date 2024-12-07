@@ -9,7 +9,7 @@ const saveToken = async (token) => {
         Cookies.set('auth_token', token, {
             path: '/',
             sameSite: 'Lax',
-            secure: false // Cambiar a true en producción (HTTPS)
+            secure: true // Cambiar a true en producción (HTTPS)
         })
     }
 }
