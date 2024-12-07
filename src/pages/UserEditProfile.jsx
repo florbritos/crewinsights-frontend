@@ -1,4 +1,4 @@
-import { EyeIcon, EyeSlashIcon, UserGroupIcon } from "@heroicons/react/24/outline";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { useAuthContext } from "../components/contexts/AuthContext";
 import InputErrorMessage from "../components/InputErrorMessage";
 import { useState } from "react";
@@ -74,10 +74,6 @@ const UserEditProfile = () => {
         delete newUserData.password
         setUser(newUserData)
         Storage.save('user', newUserData)
-    }
-
-    const updateAvatar = () => {
-
     }
 
     return (

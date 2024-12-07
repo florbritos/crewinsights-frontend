@@ -32,14 +32,7 @@ const ProtectedRoute = ({ component: Component, roles }) => {
   const { isAuthenticated } = useAuthContext()
   const [ token, setToken ] = useState(null)
   const [ activeUser, setActiveUser ] = useState({})
-  // const { handleNavigation, setFlagChangesToSave } = useNavigationContext();
-
-  // // useEffect(()=>{
-  // //   const [ token, activeUser ] = isAuthenticated()
-  // //   setToken(token)
-  // //   setActiveUser(activeUser)
-  // // }, [])
-
+  
   useEffect(()=>{
     (async () => {
       const [ token, activeUser ] = await isAuthenticated();

@@ -155,7 +155,6 @@ const SearchBot = () => {
                                         </div>
                                         
                                         {
-                                            //result && !result.graph_data && hasResponded.current && 
                                             result && hasResponded.current && Object.keys(result?.graph_data).length === 0 &&
                                             (
                                                 <div className="px-6 py-14 text-center sm:px-14">

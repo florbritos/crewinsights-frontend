@@ -42,12 +42,6 @@ const Login = () => {
         return null
       }
     })();
-
-    // const [ token ] = isAuthenticated()
-    // if(token){
-    //   navigate('/')
-    //   return null
-    // }
   }, [])
   
 
@@ -66,7 +60,6 @@ const Login = () => {
 
   const setUserSession = (user_info) => {
     setUser(user_info)
-    //Storage.saveToken('token', user_info.token, 7)
     TokenService.saveToken(user_info.token)
     delete user_info.token
     Storage.save('user', user_info)

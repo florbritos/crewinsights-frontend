@@ -1,13 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuthContext } from '../../components/contexts/AuthContext'
 import {
-    AcademicCapIcon,
-    BanknotesIcon,
     ChatBubbleOvalLeftEllipsisIcon,
-    CheckBadgeIcon,
-    ClockIcon,
     ReceiptRefundIcon,
-    UsersIcon,
 } from '@heroicons/react/24/outline'
 
 const actions = [
@@ -34,7 +29,6 @@ function classNames(...classes) {
 }
 
 const CrewHome = () => {
-    const navigate = useNavigate()
     const { user } = useAuthContext()
 
     return (

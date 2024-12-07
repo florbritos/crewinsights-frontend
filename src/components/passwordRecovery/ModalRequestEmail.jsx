@@ -1,8 +1,4 @@
 import React, { useState } from 'react'
-//import { authFieldValidation } from '../../helpers/authFieldValidation'
-//import { useAuthContext } from '../context/AuthContext'
-//import Loader from '../Loader';
-import { useAuthContext } from '../contexts/AuthContext';
 import InputErrorMessage from '../InputErrorMessage';
 import { validateField } from '../../helpers/field_rule_validations';
 import { usePasswordRecoveryContext } from '../contexts/PasswordRecoveryContext';

@@ -1,63 +1,10 @@
-import { useState, useEffect } from "react"
 import { useFlightReportContext } from "../contexts/FlightReportContext"
 import InputErrorMessage from "../InputErrorMessage"
 import { currentDateTime } from "../../helpers/field_rule_validations"
 
-// const useDebounce = (value, delay) => {
-//     const [debouncedValue, setDebouncedValue] = useState(value)
-
-//     useEffect(() => {
-//         const handler = setTimeout(() => {
-//             setDebouncedValue(value)
-//         }, delay)
-
-//         return () => {
-//             clearTimeout(handler)
-//         }
-//     }, [value, delay])
-
-//     return debouncedValue
-// }
-
 const FlightDetails = ({handleOnChange}) => {
 
     const { reportErrors, report } = useFlightReportContext()
-
-    // const now = new Date();
-    // const year = now.getFullYear();
-    // const month = String(now.getMonth() + 1).padStart(2, '0');
-    // const day = String(now.getDate()).padStart(2, '0');
-    // const hours = String(now.getHours()).padStart(2, '0');
-    // const minutes = String(now.getMinutes()).padStart(2, '0');
-    // const currentDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
-
-    // const [ departure_airport, set_departure_airport ] = useState('')
-    // const [ arrival_airport, set_arrival_airport ] = useState('')
-    // const [ departureResults, setDepartureResults ] = useState([]);
-    // const [ arrivalResults, setArrivalResults ] = useState([]);
-
-    // const debouncedDeparture = useDebounce(departure_airport, 1500)
-    // const debouncedArrival = useDebounce(arrival_airport, 1500)
-
-    // useEffect(() => {
-    //     if (debouncedDeparture) {
-    //         fetchAirports(debouncedDeparture, setDepartureResults);
-    //     }
-    // }, [debouncedDeparture]);
-    
-    // useEffect(() => {
-    //     if (debouncedArrival) {
-    //         fetchAirports(debouncedArrival, setArrivalResults);
-    //     }
-    // }, [debouncedArrival]);
-
-    // const handleDepartureSelect = (iata_code) => {
-    //     console.log(iata_code)
-    // }
-
-    // const handleArrivalSelect = (iata_code) => {
-    //     console.log(iata_code)
-    // }
 
     return (
         <>
@@ -106,23 +53,11 @@ const FlightDetails = ({handleOnChange}) => {
                                         type="text"
                                         value={report.departure_airport}
                                         onChange={e => handleOnChange(e.target.name, e.target.value.toUpperCase())}
-                                        //onChange={e=> set_departure_airport(e.target.value)}
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orangeCI-1 sm:text-sm sm:leading-6"
                                         {...(reportErrors.departure_airport && {"aria-describedby" : "error-departure_airport"})}
                                     />
                                     <InputErrorMessage error={reportErrors.departure_airport} idError="error-departure_airport"/>
                                 </div>
-                                {/* <ul>
-                                    {departureResults.map((airport) => (
-                                        <li
-                                            key={airport.iata_code}
-                                            onClick={() => handleDepartureSelect(airport.iata_code)}
-                                            style={{ cursor: 'pointer' }}
-                                        >
-                                            {airport.airport_name} ({airport.iata_code}) - {airport.city_name}
-                                        </li>
-                                    ))}
-                                </ul> */}
                             </div>
 
                             <div className="sm:col-span-1">
@@ -142,50 +77,12 @@ const FlightDetails = ({handleOnChange}) => {
                                         type="text"
                                         value={report.arrival_airport}
                                         onChange={e => handleOnChange(e.target.name, e.target.value.toUpperCase())}
-                                        //onChange={e=> set_arrival_airport(e.target.value)}
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orangeCI-1 sm:text-sm sm:leading-6"
                                         {...(reportErrors.arrival_airport && {"aria-describedby" : "error-arrival_airport"})}
                                     />
                                     <InputErrorMessage error={reportErrors.arrival_airport} idError="error-arrival_airport"/>
                                 </div>
-                                {/* <ul>
-                                    {arrivalResults.map((airport) => (
-                                        <li
-                                        key={airport.iata_code}
-                                        onClick={() => handleArrivalSelect(airport.iata_code)}
-                                        style={{ cursor: 'pointer' }}
-                                        >
-                                        {airport.airport_name} ({airport.iata_code}) - {airport.city_name}
-                                        </li>
-                                    ))}
-                                </ul> */}
                             </div>
-
-                            {/* <div className="sm:col-span-1">
-                                <label htmlFor="date_flight" className="block text-sm font-medium leading-6 text-gray-900">
-                                    Date of Flight
-                                </label>
-                                <span className={`inline-flex items-center gap-x-1.5 h-fit rounded-md bg-gray-100 text-gray-600 px-1.5 py-0.5 text-xs font-medium`}>
-                                    <svg viewBox="0 0 6 6" aria-hidden="true" className={`h-1.5 w-1.5 fill-gray-400`}>
-                                        <circle r={3} cx={3} cy={3} />
-                                    </svg>
-                                    required
-                                </span>
-                                <div className="mt-2">
-                                    <input
-                                        id="date_flight"
-                                        name="date_flight"
-                                        type="date"
-                                        max={(new Date()).toISOString().split('T')[0]}
-                                        value={report.date_flight}
-                                        onChange={e => handleOnChange(e.target.name, e.target.value)}
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orangeCI-1 sm:text-sm sm:leading-6"
-                                        {...(reportErrors.date_flight && {"aria-describedby" : "error-date_flight"})}
-                                    />
-                                    <InputErrorMessage error={reportErrors.date_flight} idError="error-date_flight"/>
-                                </div>
-                            </div> */}
-
                             <div className="sm:col-span-3">
                                 <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 xl:grid-cols-4">
                                     <div className="sm:col-span-1">

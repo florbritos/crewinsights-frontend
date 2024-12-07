@@ -2,7 +2,6 @@ import { useContext, createContext, useState } from "react";
 import * as DashboardService from '../../services/dashboard_service'
 import { useNotificationContext } from "./NotificationContext";
 import { useAuthContext } from "./AuthContext";
-import { report, response as res } from "../../helpers/field_rule_validations";
 
 const DashboardContext = createContext()
 export const useDashboardContext = () => useContext(DashboardContext)
@@ -12,24 +11,14 @@ const DashboardContextProvider = ({children}) => {
     const { setNotificationInformation } = useNotificationContext()
     const { user } = useAuthContext()
     const [ metrics, setMetrics ] = useState([])
-    const [loaderLG, setLoaderLG ] = useState(false)
+    const [ loaderLG, setLoaderLG ] = useState(false)
 
     const getMetrics = async () => {
 
         try {
-            //const response = await DashboardService.getMetrics(user.id_user)
-            const response = await new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve({
-                        status: "success",
-                        result: [res, res]
-                    })
-                }, 5000)
-            })
-
+            const response = await DashboardService.getMetrics(user.id_user)
             if (response) {
                 if (response.status === 'success'){
-                    console.log(response.result)
                     setMetrics(response.result)
                 }
             } 
@@ -55,13 +44,6 @@ const DashboardContextProvider = ({children}) => {
     const addMetric = async (metricInfo) => {
         try {
             const response = await DashboardService.addMetric(user.id_user, metricInfo.id_metric, metricInfo.metric)
-            // const response = await new Promise((resolve) => {
-            //     setTimeout(() => {
-            //         resolve({
-            //             status: "failed"
-            //         });
-            //     }, 5000); // 5 segundos
-            // });
             if (response) {
                 if (response.status === 'success'){
                     delete metricInfo.metric

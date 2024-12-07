@@ -17,9 +17,6 @@ const LoaderModal = () => {
                     className="flex flex-col justify-center items-center relative transform overflow-hidden rounded-full w-fit h-fit bg-blueCI-1 shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95"
                     >
                         <div className='flex items-center justify-center text-orangeCI-1'>
-                            {/* <span className="loading loading-ring loading-xs"></span>
-                            <span className="loading loading-ring loading-sm"></span>
-                            <span className="loading loading-ring loading-md"></span> */}
                             <span className="loading loading-ring loading-lg"></span>
                         </div>
                     </DialogPanel>

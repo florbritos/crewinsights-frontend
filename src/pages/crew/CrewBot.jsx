@@ -91,7 +91,6 @@ const Crewbot = () => {
         setShowDeleteAlert(false)
         const response = await deleteChat(chatIdToDelete)
         if (response.status === 'success'){
-            console.log(response)
             activeChatId && activeChatId === chatIdToDelete && setNewChat()
             setChats(prevChats => prevChats.filter(c=> c.id_chat !== activeChatId))
         }

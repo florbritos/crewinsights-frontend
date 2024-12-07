@@ -1,7 +1,5 @@
-import { useContext, createContext, useState, useEffect, useCallback } from "react"
-import * as AuthService from '../../services/auth_service'
+import { useContext, createContext, useState} from "react"
 import { useNotificationContext } from "./NotificationContext"
-import * as Storage from "../../services/storage_service"
 import * as UserManagementService from '../../services/userManagement_service'
 import { useAuthContext } from "./AuthContext"
 
@@ -31,7 +29,6 @@ const UserManagementContextProvider = ({children}) => {
     }
 
     const updateUser = async (id_user_change, changes) => {
-        console.log(id_user_change, changes)
         try {
             const response = await UserManagementService.updateUser(user.id_user, id_user_change, changes)
             if (response) {

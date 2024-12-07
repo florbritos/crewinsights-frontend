@@ -13,14 +13,12 @@ const Dashboard = () => {
     const { getMetrics, metrics, setMetrics, deleteMetric, loaderLG, setLoaderLG } = useDashboardContext()
     const [ metricToDelete, setMetricToDelete ] = useState("")
     const [ showCloseWarning, setShowCloseWarning ] = useState(false)
-    //const chartRefs = useRef([]);
     const hasFetched = useRef(false)
 
     useEffect(()=>{
         if (!hasFetched.current) {
             hasFetched.current = true;
             fetchMetrics();
-            //setMetrics(report)
         }
     }, [])
 
@@ -30,14 +28,7 @@ const Dashboard = () => {
         setLoaderLG(false)
     }
 
-    // useEffect(() => {
-    //     metrics.forEach((metric, index) => {
-    //         metric?.graph_data?.data && Plotly.newPlot(chartRefs.current[index], metric.graph_data.data, metric.graph_data.layout)
-    //     })
-    // }, [metrics])
-
     const refreshData = () => {
-        //console.log("se refrescan las metricas")
         fetchMetrics()
     }
 

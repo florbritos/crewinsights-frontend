@@ -56,16 +56,6 @@ const UserEdition = ({showUserEdition, setShowUserEdition, selectedPerson}) => {
         setChanges({...newChanges, [key] : value})
     }
 
-    // function getDifferences(obj1, obj2) {
-    //     const differences = {};
-    //     for (const key in obj2) {
-    //         if (obj2[key] !== obj1[key]) {
-    //             differences[key] = obj2[key];
-    //         }
-    //     }
-    //     return differences;
-    // }
-
     const handleSubmit = (e) => {
         e.preventDefault()
         const differences = getDifferences(selectedPerson, changes)
