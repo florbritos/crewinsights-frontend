@@ -12,14 +12,10 @@ import {
 } from '@headlessui/react'
 import {
     Bars3Icon,
-    ChartPieIcon,
-    CursorArrowRaysIcon,
-    FingerPrintIcon,
     PencilSquareIcon,
-    SquaresPlusIcon,
     XMarkIcon,
 } from '@heroicons/react/24/outline'
-import { ChevronDownIcon, PhoneIcon, PlayCircleIcon, RectangleGroupIcon, UserCircleIcon } from '@heroicons/react/20/solid'
+import { ChevronDownIcon, UserCircleIcon } from '@heroicons/react/20/solid'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useLoaderModalContext } from './contexts/LoaderModalContext';
 import { useAuthContext } from './contexts/AuthContext';
@@ -31,13 +27,13 @@ const options = [
     {
         name: 'View Profile',
         description: 'View your profile information, including personal details and account settings.',
-        href: '#',
+        href: '/profile',
         icon: UserCircleIcon,
     },
     {
         name: 'Edit Profile',
         description: 'Edit your profile information and update account settings.',
-        href: '#',
+        href: '/edit-profile',
         icon: PencilSquareIcon,
     }
 ]
@@ -51,7 +47,9 @@ function CurrentPage() {
         "crewbot" : "CrewBot",
         "flight-report": "Flight-Report",
         "dashboard": "Home",
-        "user-management": "Users"
+        "user-management": "Users",
+        "profile": "Profile",
+        "edit-profile": "Edit Profile"
     }
     const lastPart = currentPath.split('/').filter(Boolean).pop();
 
@@ -133,30 +131,18 @@ export default function Menu() {
                                     <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                                         <item.icon aria-hidden="true" className="h-6 w-6 text-gray-600 group-hover:text-orangeCI-1" />
                                     </div>
-                                    <a href={item.href} className="mt-6 block font-semibold text-gray-900 text-start">
+                                    <Link 
+                                        to={item.href}
+                                        onClick={e => { e.preventDefault(); handleRouteChange(item.href)}}
+                                        className="mt-6 block font-semibold text-gray-900 text-start"
+                                    >
                                         {item.name}
                                         <span className="absolute inset-0" />
-                                    </a>
+                                    </Link>
                                     <p className="mt-1 text-gray-600 text-start">{item.description}</p>
                                 </div>
                                 ))}
                             </div>
-                            {/* <div className="bg-gray-50">
-                                <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                                    <div className="grid grid-cols-3 divide-x divide-gray-900/5 border-x border-gray-900/5">
-                                        {callsToAction.map((item) => (
-                                        <a
-                                            key={item.name}
-                                            href={item.href}
-                                            className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
-                                        >
-                                            <item.icon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
-                                            {item.name}
-                                        </a>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div> */}
                         </PopoverPanel>
                     </Popover>
                     <Link 
@@ -190,11 +176,6 @@ export default function Menu() {
                         Log out <span aria-hidden="true">&rarr;</span>
                     </button>
                 </div>
-                {/* <form onSubmit={onSubmit} className="hidden lg:flex lg:flex-1 lg:justify-end">
-                    <button type="submit" className="text-sm font-semibold leading-6 text-gray-900 hover:text-orangeCI-1">
-                        Log out <span aria-hidden="true">&rarr;</span>
-                    </button>
-                </form> */}
             </nav>
             <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
                 <div className="fixed inset-0 z-10" />
@@ -233,14 +214,13 @@ export default function Menu() {
                                 </DisclosureButton>
                                 <DisclosurePanel className="mt-2 space-y-2">
                                     {[...options].map((item) => (
-                                    <DisclosureButton
-                                        key={item.name}
-                                        as="a"
-                                        href={item.href}
+                                    <Link
+                                        to={item.href}
+                                        onClick={e => { e.preventDefault(); handleRouteChange(item.href); setMobileMenuOpen(false)}}
                                         className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                                     >
                                         {item.name}
-                                    </DisclosureButton>
+                                    </Link>
                                     ))}
                                 </DisclosurePanel>
                             </Disclosure>
@@ -275,10 +255,6 @@ export default function Menu() {
                                 Log out
                             </button>
                         </div>
-                        
-                        {/* <form onSubmit={onSubmit} className="py-6">
-                            
-                        </form> */}
                     </div>
                 </div>
                 </DialogPanel>

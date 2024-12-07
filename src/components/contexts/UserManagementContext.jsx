@@ -31,6 +31,7 @@ const UserManagementContextProvider = ({children}) => {
     }
 
     const updateUser = async (id_user_change, changes) => {
+        console.log(id_user_change, changes)
         try {
             const response = await UserManagementService.updateUser(user.id_user, id_user_change, changes)
             if (response) {

@@ -24,6 +24,9 @@ import PageNotEntitlements from './pages/PageNotEntitlements';
 import SearchBotContextProvider from './components/contexts/SearchBotContext';
 import UserManagementContextProvider from './components/contexts/UserManagementContext';
 import UserManagement from './pages/admin/UserManagement';
+import UserProfile from './pages/UserProfile';
+import UserEditProfile from './pages/UserEditProfile';
+import PasswordRecoveryContextProvider from './components/contexts/PasswordRecoveryContext';
 
 const ProtectedRoute = ({ component: Component, roles }) => {
   const { isAuthenticated } = useAuthContext()
@@ -73,23 +76,27 @@ function App() {
                 <SearchBotContextProvider>
                   <CrewBotContextProvider>
                     <FlightReportContextProvider>
-                      <LoaderModal/>
-                      <Notification/>
-                      <BrowserRouter>
-                        <NavigationContextProvider>
-                          <Routes>
-                            <Route path='/login' element={<Login/>}/>
-                            <Route path='/' element={<Home/>}/>
-                            <Route path="/dashboard" element= {<><Menu/><ProtectedRoute component={Dashboard} roles={['Admin']} /></>}/>
-                            <Route path="/user-management" element= {<><Menu/><ProtectedRoute component={UserManagement} roles={['Admin']} /></>}/>
-                            <Route path="/crewhome" element= {<><Menu/><ProtectedRoute component={CrewHome} roles={['Crew']} /></>}/>
-                            <Route path="/crewbot" element= {<><Menu/><ProtectedRoute component={Crewbot} roles={['Crew']} /></>}/>
-                            <Route path="/flight-report" element= {<><Menu/><ProtectedRoute component={FlightReport} roles={['Crew']} /></>}/>
-                            <Route path='/unauthorized' element={<PageNotEntitlements/>}/>
-                            <Route path="*" element={<PageNotFound />} />
-                          </Routes>
-                        </NavigationContextProvider>
-                      </BrowserRouter>
+                      <PasswordRecoveryContextProvider>
+                        <LoaderModal/>
+                        <Notification/>
+                        <BrowserRouter>
+                          <NavigationContextProvider>
+                            <Routes>
+                              <Route path='/login' element={<Login/>}/>
+                              <Route path='/' element={<Home/>}/>
+                              <Route path='/profile' element={<><Menu/><ProtectedRoute component={UserProfile} roles={['Admin', 'Crew']} /></>}/>
+                              <Route path='/edit-profile' element={<><Menu/><ProtectedRoute component={UserEditProfile} roles={['Admin', 'Crew']} /></>}/>
+                              <Route path="/dashboard" element= {<><Menu/><ProtectedRoute component={Dashboard} roles={['Admin']} /></>}/>
+                              <Route path="/user-management" element= {<><Menu/><ProtectedRoute component={UserManagement} roles={['Admin']} /></>}/>
+                              <Route path="/crewhome" element= {<><Menu/><ProtectedRoute component={CrewHome} roles={['Crew']} /></>}/>
+                              <Route path="/crewbot" element= {<><Menu/><ProtectedRoute component={Crewbot} roles={['Crew']} /></>}/>
+                              <Route path="/flight-report" element= {<><Menu/><ProtectedRoute component={FlightReport} roles={['Crew']} /></>}/>
+                              <Route path='/unauthorized' element={<PageNotEntitlements/>}/>
+                              <Route path="*" element={<PageNotFound />} />
+                            </Routes>
+                          </NavigationContextProvider>
+                        </BrowserRouter>
+                      </PasswordRecoveryContextProvider>
                     </FlightReportContextProvider>
                   </CrewBotContextProvider>
                 </SearchBotContextProvider>

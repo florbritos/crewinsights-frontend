@@ -4,7 +4,7 @@ import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/re
 import { ExclamationTriangleIcon, PencilIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon } from '@heroicons/react/16/solid'
 import InputErrorMessage from '../InputErrorMessage'
-import { currentDateTime, validateField, validateObjectFields } from '../../helpers/field_rule_validations'
+import { currentDateTime, getDifferences, validateField, validateObjectFields } from '../../helpers/field_rule_validations'
 import { useNotificationContext } from '../contexts/NotificationContext'
 import { useUserManagementContext } from '../contexts/UserManagementContext'
 import LoaderLG from '../LoaderLG'
@@ -56,15 +56,15 @@ const UserEdition = ({showUserEdition, setShowUserEdition, selectedPerson}) => {
         setChanges({...newChanges, [key] : value})
     }
 
-    function getDifferences(obj1, obj2) {
-        const differences = {};
-        for (const key in obj2) {
-            if (obj2[key] !== obj1[key]) {
-                differences[key] = obj2[key];
-            }
-        }
-        return differences;
-    }
+    // function getDifferences(obj1, obj2) {
+    //     const differences = {};
+    //     for (const key in obj2) {
+    //         if (obj2[key] !== obj1[key]) {
+    //             differences[key] = obj2[key];
+    //         }
+    //     }
+    //     return differences;
+    // }
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -89,7 +89,6 @@ const UserEdition = ({showUserEdition, setShowUserEdition, selectedPerson}) => {
         const differences = getDifferences(selectedPerson, changes)
         const response = await updateUser(selectedPerson.id_user, differences)
         if (response){
-            debugger
             if(response.status === 'success'){
                 await getUserList()
                 setShowUserEdition(false)
@@ -120,7 +119,7 @@ const UserEdition = ({showUserEdition, setShowUserEdition, selectedPerson}) => {
                                     showLoader &&
                                     <>
                                         <LoaderLG/>
-                                        Updating user
+                                        <p className="font-normal uppercase tracking-widest mt-5">Updating user</p>
                                     </>
                                 }
                                 {

@@ -76,7 +76,7 @@ const SearchUser = () => {
                     </div>
 
                     {(query === '' || filteredUsers.length > 0) && (
-                    <ComboboxOptions as="div" static hold className="flex transform-gpu divide-x divide-gray-100">
+                    <ComboboxOptions as="div" static hold className="flex flex-col sm:flex-row transform-gpu divide-x divide-gray-100">
                         <div
                             className={classNames(
                                 'max-h-96 min-w-0 flex-auto scroll-py-4 overflow-y-auto px-6 py-4',
@@ -105,7 +105,7 @@ const SearchUser = () => {
                                 ))}
                             </div>
                         </div>
-                        <div className="hidden h-full w-1/2 flex-none flex-col divide-y divide-gray-100 overflow-y-auto sm:flex">
+                        <div className="h-full flex-none sm:flex f-full sm:w-1/2 flex-col divide-y divide-gray-100 overflow-y-auto ">
                             {
                                 selectedPerson && (
                                     <>

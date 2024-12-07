@@ -59,7 +59,7 @@ async function getAllChatsByUserId(id_user) {
         } 
     })
     .catch(function(){
-        throw new Error('Oops! An unexpected error happened while trying to send a message. Please, try again later.')
+        throw new Error('Oops! An unexpected error happened while trying to get all the chats. Please, try again later.')
     })
 }
 

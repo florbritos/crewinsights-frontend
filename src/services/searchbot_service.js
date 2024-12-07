@@ -18,7 +18,7 @@ async function search(id_user, query) {
         } 
     })
     .catch(function(){
-        throw new Error('Oops! An unexpected error happened while trying to send a message. Please, try again later.')
+        throw new Error('Oops! An unexpected error happened while trying to search a new metric. Please, try again later.')
     })
 }
 

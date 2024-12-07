@@ -164,6 +164,16 @@ export function currentDateTime(){
     return `${year}-${month}-${day}T${hours}:${minutes}`
 }
 
+export function getDifferences(obj1, obj2) {
+    const differences = {};
+    for (const key in obj2) {
+        if (obj2[key] !== obj1[key]) {
+            differences[key] = obj2[key];
+        }
+    }
+    return differences;
+}
+
 export const response = {
         'graph_data': {
             'data': [

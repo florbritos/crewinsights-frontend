@@ -11,12 +11,17 @@ import {
   EyeIcon,
   EyeSlashIcon
 } from '@heroicons/react/24/outline'
+import ModalRequestEmail from '../components/passwordRecovery/ModalRequestEmail';
+import ModalOTP from '../components/passwordRecovery/ModalOTP';
+import { usePasswordRecoveryContext } from '../components/contexts/PasswordRecoveryContext';
+import ModalNewPassword from '../components/passwordRecovery/ModalNewPassword';
 
 const Login = () => {
   const navigate = useNavigate()
   const { setOpen } = useLoaderModalContext()
   const { login, user, setUser, isAuthenticated } = useAuthContext()
   const { setNotificationInformation } = useNotificationContext()
+  const { showModalOTPValidation, showModalRequestEmail, setShowModalRequestEmail, showModalNewPassword } = usePasswordRecoveryContext()
   const [ showPassword, setShowPassword ] = useState(false)
   const [authInfo, setAuthInfo] = useState({
     email: null,
@@ -101,7 +106,7 @@ const Login = () => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form novalidate onSubmit={onSubmit} className="space-y-6" >
+          <form noValidate onSubmit={onSubmit} className="space-y-6" >
             <div>
               <div className="flex">
                 <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
@@ -127,9 +132,13 @@ const Login = () => {
                   Password
                 </label>
                 <div className="text-sm">
-                  <a href="#" className="font-semibold text-blueCI-1 hover:text-orangeCI-1">
+                  <button 
+                    type='button'
+                    onClick={() => setShowModalRequestEmail(true)}
+                    className="font-semibold text-blueCI-1 hover:text-orangeCI-1"
+                  >
                     Forgot password?
-                  </a>
+                  </button>
                 </div>
               </div>
               <div className="mt-2">
@@ -173,6 +182,18 @@ const Login = () => {
             </div>
           </form>
         </div>
+        {
+          showModalRequestEmail &&
+          <ModalRequestEmail />
+        }
+        {
+          showModalOTPValidation &&
+          <ModalOTP />
+        }
+        {
+          showModalNewPassword &&
+          <ModalNewPassword />
+        }
       </div>
     </>
   )
