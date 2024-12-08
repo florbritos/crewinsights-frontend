@@ -18,7 +18,9 @@ const SearchBotContextProvider = ({children}) => {
             const res = await SearchBotService.search(user.id_user, query)
             if (res) {
                 return res
-            } 
+            } else {
+                setNotificationInformation({"status": "failed", "title": "Oops! Something went wrong", "message": "Please try again later"})
+            }
         } catch {
             setNotificationInformation({"status": "failed", "title": "Oops! Something went wrong", "message": "Please try again later"})
         } finally{

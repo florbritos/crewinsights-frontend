@@ -75,6 +75,10 @@ const Dashboard = () => {
                             </button>
                         </div>
                         <div className="flex flex-wrap justify-center gap-6 mx-auto">
+                            {
+                                metrics.length === 0 &&
+                                <p>No metrics saved in your dashboard.</p>
+                            }
                             {metrics.map((metric, index) => (
                                 <div
                                     key={index}

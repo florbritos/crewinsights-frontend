@@ -9,13 +9,13 @@ import {
 import { MagnifyingGlassIcon, SquaresPlusIcon, WrenchScrewdriverIcon, XCircleIcon } from '@heroicons/react/20/solid'
 import { useEffect, useRef, useState } from 'react'
 import { useSearchBotContext } from '../contexts/SearchBotContext'
-import Plotly from 'plotly.js-dist';
 import Plot from 'react-plotly.js';
 import { useDashboardContext } from '../contexts/DashboardContext';
-import LoaderXS from '../LoaderXS';
 import LoaderLG from '../LoaderLG';
+import { useNotificationContext } from '../contexts/NotificationContext';
 
 const SearchBot = () => {
+    const { setNotificationInformation } = useNotificationContext()
     const { search, searchBotThinking } = useSearchBotContext()
     const { addMetric } = useDashboardContext()
     const [ query, setQuery ] = useState('')
@@ -41,6 +41,8 @@ const SearchBot = () => {
             } else {
                 setResult({})
             }
+        } else {
+            setNotificationInformation({"status": "failed", "title": "Oops! Something went wrong", "message": "Please try again later"})
         }
     }
 
@@ -134,7 +136,7 @@ const SearchBot = () => {
                                             </div>
                                         }
                                         
-                                        <div className='flex flex-col justify-center my-2 w-fit mx-auto'>
+                                        {/* <div className='flex flex-col justify-center my-2 w-fit mx-auto'>
                                             {
                                                 result?.graph_data?.data && hasResponded.current &&
                                                 <Plot 
@@ -167,6 +169,46 @@ const SearchBot = () => {
                                                     </p>
                                                 </div>
                                             )
+                                        } */}
+                                        <div className="flex flex-col justify-center my-2 w-fit mx-auto">
+                                            {
+                                                result?.graph_data?.data && 
+                                                Array.isArray(result.graph_data.data) && 
+                                                result.graph_data.data.length > 0 &&
+                                                hasResponded.current && (
+                                                    <Plot 
+                                                        data={result.graph_data.data} 
+                                                        layout={{
+                                                            ...result.graph_data.layout,
+                                                            autosize: true,
+                                                        }}
+                                                        className="mx-auto"
+                                                    />
+                                                )
+                                            }
+                                            {
+                                                result?.analysis && hasResponded.current && (
+                                                    <div className="whitespace-pre-wrap px-2 py-5 text-sm text-white">
+                                                        {result.analysis}
+                                                    </div>
+                                                )
+                                            }
+                                        </div>
+
+                                        {
+                                            result && 
+                                            hasResponded.current && 
+                                            (!result.graph_data || Object.keys(result.graph_data).length === 0) && (
+                                                <div className="px-6 py-14 text-center sm:px-14">
+                                                    <WrenchScrewdriverIcon className="mx-auto size-14 text-gray-200" aria-hidden="true" />
+                                                    <p className="mt-4 text-2xl font-bold text-gray-200">
+                                                        Oops! Sorry, I couldn’t generate a graph for what you are looking for.
+                                                    </p>
+                                                    <p className="text-base text-white">
+                                                        Maybe try with another input?
+                                                    </p>
+                                                </div>
+                                            )
                                         }
                                     </div>
 
@@ -174,7 +216,7 @@ const SearchBot = () => {
                                         <h2 className="sr-only">Quick actions</h2>
                                         <div className="text-sm text-gray-400">
                                             {
-                                                result && Object.keys(result).length !== 0 && hasResponded.current &&
+                                                result && result?.graph_data?.data && hasResponded.current &&
                                                 (
                                                     <>
                                                         <button

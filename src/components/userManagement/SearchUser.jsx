@@ -24,18 +24,19 @@ const SearchUser = () => {
     const [ filteredUsers, setFilteredUsers ] = useState([])
     const [ showUserDeletionAlert, setShowUserDeletionAlert ] = useState(false)
 
-    useEffect(()=>{
-        setFilteredUsers(query === ''
-            ? []
-            : userList.filter((person) => {
-                return (
-                    person.first_name.toLowerCase().includes(query.toLowerCase()) ||
-                    person.last_name.toLowerCase().includes(query.toLowerCase()) ||
-                    person.email.toLowerCase().includes(query.toLowerCase())
-                );
-            })
-        )
-    }, [query, userList])
+    useEffect(() => {
+        setFilteredUsers(
+            query === ''
+                ? []
+                : userList.filter((person) => {
+                    const queryWords = query.toLowerCase().split(' ');
+                    const fullName = `${person.first_name} ${person.last_name}`.toLowerCase();
+                    return queryWords.every(word =>
+                        fullName.includes(word) || person.email.toLowerCase().includes(word)
+                    );
+                })
+        );
+    }, [query, userList]);
 
     useEffect(()=>{
         const selected = userList.filter(u => u.id_user === selectedPerson?.id_user)
