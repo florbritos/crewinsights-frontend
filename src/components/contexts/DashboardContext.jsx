@@ -20,6 +20,8 @@ const DashboardContextProvider = ({children}) => {
             if (response) {
                 if (response.status === 'success'){
                     setMetrics(response.result)
+                } else {
+                    setNotificationInformation({"status": "failed", "title": "Oops! Something went wrong", "message": "Please try again later"})
                 }
             } 
         } catch {
@@ -34,6 +36,8 @@ const DashboardContextProvider = ({children}) => {
                 if (response.status === 'success'){
                     setNotificationInformation({"status": "success", "title": "Dashboard updated!", "message": "You have deleted a metric successfully."})
                     return true
+                } else {
+                    setNotificationInformation({"status": "failed", "title": "Oops! Something went wrong", "message": "Please try again later"})
                 }
             } 
         } catch {

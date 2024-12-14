@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from "react"
 import { useDashboardContext } from "../../components/contexts/DashboardContext"
-import Plotly from 'plotly.js-dist';
-import { TrashIcon, WrenchScrewdriverIcon, ArrowDownIcon, ArrowPathIcon } from '@heroicons/react/20/solid'
+import { TrashIcon, WrenchScrewdriverIcon, ArrowPathIcon } from '@heroicons/react/20/solid'
 import PopUpModal from "../../components/PopUpModal";
 import LoaderLG from "../../components/LoaderLG"
-import { report } from "../../helpers/field_rule_validations";
 import SearchBot from "../../components/searchbot/SearchBot";
 import Plot from 'react-plotly.js';
 
@@ -86,6 +84,30 @@ const Dashboard = () => {
                                 >
                                     <div className="overflow-x-auto w-screen sm:w-fit">
                                         {
+                                            metric.graph_data?.data && 
+                                            Array.isArray(metric.graph_data.data) && 
+                                            metric.graph_data.data.length > 0 &&
+                                            <div className="w-fit">
+                                                <Plot 
+                                                    data={metric?.graph_data?.data} 
+                                                    layout={metric?.graph_data?.layout}
+                                                />
+                                                <div className="whitespace-pre-wrap max-w-[500px] px-2 py-5 text-sm bg-white">
+                                                    {metric.analysis}
+                                                </div>
+                                            </div>
+                                            
+                                        }
+                                        {
+                                            (!metric.graph_data || Object.keys(metric.graph_data).length === 0) && (
+                                                <div className="flex flex-col justify-center items-center text-center bg-white text-sm font-medium p-4 max-w-[500px]">
+                                                    <p>Sorry, we couldn’t load this metric. Please try refreshing the page or check back later.</p>
+                                                    <WrenchScrewdriverIcon aria-hidden="true" className="my-10 h-16 w-16 block" />
+                                                </div>
+                                            )
+
+                                        }
+                                        {/* {
                                             metric.graph_data &&
                                             <div className="w-fit">
                                                 <Plot 
@@ -106,7 +128,7 @@ const Dashboard = () => {
                                                 </div>
                                             )
 
-                                        }
+                                        } */}
                                     </div>
                                     <div className="bg-gray-50 p-4 max-w-[500px]">
                                         <div className="flex gap-x-2 items-center">
