@@ -148,6 +148,8 @@ const FlightReport = () => {
             setReportStatus('Submitted')
             setFlagChangesToSave(false)
             return
+        } else {
+            setNotificationInformation({"status": "failed", "title": "Oops! Something went wrong", "message": "Please try again later"})
         }
     }
 
